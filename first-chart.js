@@ -15,7 +15,7 @@ var div = Numbas.extensions.jsxgraph.makeBoard('400px','400px',
 
 var board = div.board;
 
-var xaxis = board.create('line', [[0,0],[1,0]],
+var xaxis = board.create('line', [[0, 0], [1, 0]],
     {
       strokeColor: 'black',
       fixed: true
@@ -27,12 +27,12 @@ var xticks = board.create('ticks', [xaxis, 2],
       minorTicks: 0
     });
 
-var yaxis = board.create('line', [[0,0],[0,1]], 
+var yaxis = board.create('line', [[0, 0], [0, 1]], 
     {
       strokeColor: 'black',
       fixed: true
     });
-var yticks = board.create('ticks', [yaxis,2],
+var yticks = board.create('ticks', [yaxis, 2],
     {
       drawLabels: true,
       label: {offset: [-20, 0]},
@@ -78,31 +78,43 @@ for (var i=0; i<length/barWidth; i++) {
 }
 
 //var fbar = [5, 6, 7, 8];
-
+var riemannStyle = 'left';
 var fbar = [];
-x.forEach(function(xval){
-  // if left
-  fbar.push(equation(xval));
-  // if mid, + 0.5 * barWidth
-  // fbar.push(equation(xval + 0.5 * barWidth));
-  // if mid, + barWidth
-  // fbar.push(equation(xval + barWidth));
+x.forEach(function(xVal){
+  var fbarVal;
+  if (riemannStyle === 'left') {
+    fbarVal = equation(xVal);
+  } else if (riemannStyle === 'mid') {
+    fbarVal = equation(xVal + 0.5 * barWidth);
+  } else {
+    fbarVal = equation(xVal + barWidth);
+  }
+
+  fbar.push(fbarVal);
+  var label = fbarVal * barWidth;
+
+  var p1 = board.create('point', [xVal, fbarVal], {size:0, strokeColor:'blue'});
+  var p2 = board.create('point', [xVal, 0], {size:0, strokeColor:'blue'});
+  var p3 = board.create('point', [xVal + barWidth, 0], {size:0, strokeColor:'blue'});
+  var p4 = board.create('point', [xVal + barWidth, fbarVal], {size:0, strokeColor:'blue'});
+
+  var poly = board.createElement('polygon', [p1, p2, p3, p4]);
 });
 
-labels = fbar * barWidth;
 
-var chart = board.createElement('chart', [fbar], 
-    {chartStyle:'bar', width: barWidth, labels:labels, strokeColor: '#0000FF', strokeWidth:'3px'});
+// var chart = board.createElement('chart', [fbar], 
+//     {chartStyle:'bar', width: barWidth, labels:labels, strokeColor: '#0000FF', strokeWidth:'3px'});
 
 
 // for polygons
-i=0;
-var p1 = board.create('point', [x[i], fbar[i]], {size:0, strokeColor:'blue'});
-var p2 = board.create('point', [x[i], 0], {size:0, strokeColor:'blue'});
-var p3 = board.create('point', [x[i] + barWidth, 0], {size:0, strokeColor:'blue'});
-var p4 = board.create('point', [x[i] + barWidth, fbar[i]], {size:0, strokeColor:'blue'});
+// x.forEach
+// i=0;
+// var p1 = board.create('point', [x[i], fbar[i]], {size:0, strokeColor:'blue'});
+// var p2 = board.create('point', [x[i], 0], {size:0, strokeColor:'blue'});
+// var p3 = board.create('point', [x[i] + barWidth, 0], {size:0, strokeColor:'blue'});
+// var p4 = board.create('point', [x[i] + barWidth, fbar[i]], {size:0, strokeColor:'blue'});
 
-var poly = board.createElement('polygon',[p1, p2, p3, p4]);
+// var poly = board.createElement('polygon',[p1, p2, p3, p4]);
 
 // http://jsxgraph.uni-bayreuth.de/wiki/index.php/Polygon
 
