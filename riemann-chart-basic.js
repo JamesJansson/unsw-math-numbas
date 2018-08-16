@@ -4,7 +4,7 @@
 
 var div = Numbas.extensions.jsxgraph.makeBoard('400px','400px',
   {
-    boundingBox: [-13,16,13,-16], // xmin, ymax, xmax, ymin
+    boundingBox: [-2,25,13,-3], // xmin, ymax, xmax, ymin
     axis: false,
     showNavigation: false,
     grid: true
@@ -93,10 +93,10 @@ x.forEach(function(xVal){
   fbar.push(fbarVal);
   var label = fbarVal * barWidth;
 
-  var p1 = board.create('point', [xVal, fbarVal], {size:0, strokeColor:'blue'});
-  var p2 = board.create('point', [xVal, 0], {size:0, strokeColor:'blue'});
-  var p3 = board.create('point', [xVal + barWidth, 0], {size:0, strokeColor:'blue'});
-  var p4 = board.create('point', [xVal + barWidth, fbarVal], {size:0, strokeColor:'blue'});
+  var p1 = board.create('point', [xVal, fbarVal], {name: '', size:0, strokeColor:'blue'});
+  var p2 = board.create('point', [xVal, 0], {name: '', size:0, strokeColor:'blue'});
+  var p3 = board.create('point', [xVal + barWidth, 0], {name: '', size:0, strokeColor:'blue'});
+  var p4 = board.create('point', [xVal + barWidth, fbarVal], {name: '', size:0, strokeColor:'blue'});
 
   var poly = board.createElement('polygon', [p1, p2, p3, p4]);
 });
