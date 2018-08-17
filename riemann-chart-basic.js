@@ -8,8 +8,9 @@
 // Determine the rough min and max range, given the domain of the question
 var length = x_1 - x_0;
 xTestStep = length / 10;
-for (var xTest = x_0; v <= x_1; xTest += xTestStep) {
-  var fval = f(xTest);
+var fMin, fMax;
+for (var xTest = x_0; xTest <= x_1; xTest += xTestStep) {
+  var fVal = equation(xTest);
   if (fMax === undefined) {
     fMax = fVal;
   }
@@ -26,12 +27,12 @@ for (var xTest = x_0; v <= x_1; xTest += xTestStep) {
 
 yBoundMax = Math.ceil(fMax + (fMax - fMin) / 10);
 yBoundMax = yBoundMax < 0 ? 0 : yBoundMax;
-yBoundMin = Math.floor(fMax - (fMax - fMin) / 10);
+yBoundMin = Math.floor(fMin - (fMax - fMin) / 10);
 yBoundMin = yBoundMin > 0 ? 0 : yBoundMin;
 
-xBoundMax = Math.ceil(fMax + (fMax - fMin) / 10);
+xBoundMax = Math.ceil(x_1 + (x_1 - x_0) / 10);
 xBoundMax = xBoundMax < 0 ? 0 : xBoundMax;
-xBoundMin = Math.floor(fMax - (fMax - fMin) / 10);
+xBoundMin = Math.floor(x_0 - (x_1 - x_0) / 10);
 xBoundMin = xBoundMin > 0 ? 0 : xBoundMin;
 
 var div = Numbas.extensions.jsxgraph.makeBoard('400px','400px', 
