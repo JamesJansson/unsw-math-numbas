@@ -3,13 +3,27 @@
 // https://numbas.mathcentre.ac.uk/question/2223/use-student-input-in-a-jsxgraph-diagram/
 
 // Get equation, interpret
+// var equationString = question.parts[0].gaps[0].display.studentAnswer();
+var compiledExpression = Numbas.jme.compile(equationString, scope);
+if(compiledExpression === null) {
+  throw(new Error('No equation'));
+}
 
+function equation(x){
+  // return a*x*x + b*x + c;
+  // Create a JME scope with the variable x set to the given value.
+  var nscope = new Numbas.jme.Scope([
+      Numbas.jme.builtinScope,
+      {variables: {x: new Numbas.jme.types.TNum(x)}}
+  ]);
+  return Numbas.jme.evaluate(compiledExpression, nscope).value;
+}
 
 // Determine the rough min and max range, given the domain of the question
 var length = x_1 - x_0;
-xTestStep = length / 10;
+var xTestStepSize = length / 10;
 var fMin, fMax;
-for (var xTest = x_0; xTest <= x_1; xTest += xTestStep) {
+for (var xTest = x_0; xTest <= x_1; xTest += xTestStepSize) {
   var fVal = equation(xTest);
   if (fMax === undefined) {
     fMax = fVal;
@@ -24,16 +38,17 @@ for (var xTest = x_0; xTest <= x_1; xTest += xTestStep) {
     fMin = fVal;
   }
 }
+var yBuffer = (fMax - fMin) / 10;
+yBoundMax = Math.ceil(fMax + yBuffer);
+yBoundMax = yBoundMax < yBuffer ? yBuffer : yBoundMax;
+yBoundMin = Math.floor(fMin - yBuffer);
+yBoundMin = yBoundMin > -yBuffer ? -yBuffer : yBoundMin;
 
-yBoundMax = Math.ceil(fMax + (fMax - fMin) / 10);
-yBoundMax = yBoundMax < 0 ? 0 : yBoundMax;
-yBoundMin = Math.floor(fMin - (fMax - fMin) / 10);
-yBoundMin = yBoundMin > 0 ? 0 : yBoundMin;
-
-xBoundMax = Math.ceil(x_1 + (x_1 - x_0) / 10);
-xBoundMax = xBoundMax < 0 ? 0 : xBoundMax;
-xBoundMin = Math.floor(x_0 - (x_1 - x_0) / 10);
-xBoundMin = xBoundMin > 0 ? 0 : xBoundMin;
+var xBuffer = (x_1 - x_0) / 10;
+xBoundMax = Math.ceil(x_1 + xBuffer);
+xBoundMax = xBoundMax < xBuffer ? xBuffer : xBoundMax;
+xBoundMin = Math.floor(x_0 - xBuffer);
+xBoundMin = xBoundMin > -xBuffer ? -xBuffer : xBoundMin;
 
 var div = Numbas.extensions.jsxgraph.makeBoard('400px','400px', 
   {
@@ -70,22 +85,16 @@ var yticks = board.create('ticks', [yaxis, 1],
     });
 
 
-function equation(x) {
-  return a*x*x + b*x + c;
-  // Create a JME scope with the variable x set to the given value.
-  // var nscope = new Numbas.jme.Scope([
-  //     Numbas.jme.builtinScope,
-  //     {variables: {x: new Numbas.jme.types.TNum(x)}}
-  // ]);
-  // return Numbas.jme.evaluate(equation, nscope).value;
-}
+
 
 var curveline = board.create('functiongraph',
                 [equation, -2, 16]);
-
 var x = [];
-for (var i=0; i<length/barWidth; i++) {
-  x.push(i*barWidth);
+// for (var i=0; i<= length/barWidth + 0.00000000001; i++) {
+console.log('x_0, x_1, barWidth');
+console.log(x_0, x_1, barWidth);
+for (var xStep = x_0; xStep <= x_1 - barWidth + 0.00000000001; xStep += barWidth) {
+  x.push(xStep);
 }
 
 //var fbar = [5, 6, 7, 8];
