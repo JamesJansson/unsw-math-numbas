@@ -1,3 +1,8 @@
+// Next
+// Divide axis into 1,2,5 over 10^0, 10^1, 10^2, ...
+// Make a, b, c parameters
+
+
 // Code partially inspired by 
 // Use student input in a JSXGraph diagram by Christian Lawson-Perfect
 // https://numbas.mathcentre.ac.uk/question/2223/use-student-input-in-a-jsxgraph-diagram/
