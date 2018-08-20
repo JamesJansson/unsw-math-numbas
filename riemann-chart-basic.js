@@ -43,13 +43,13 @@ for (var xTest = x_0; xTest <= x_1; xTest += xTestStepSize) {
     fMin = fVal;
   }
 }
-var yBuffer = (fMax - fMin) / 10;
+var yBuffer = (fMax - fMin) / 7;
 yBoundMax = Math.ceil(fMax + yBuffer);
 yBoundMax = yBoundMax < yBuffer ? yBuffer : yBoundMax;
 yBoundMin = Math.floor(fMin - yBuffer);
 yBoundMin = yBoundMin > -yBuffer ? -yBuffer : yBoundMin;
 
-var xBuffer = (x_1 - x_0) / 10;
+var xBuffer = (x_1 - x_0) / 7;
 xBoundMax = Math.ceil(x_1 + xBuffer);
 xBoundMax = xBoundMax < xBuffer ? xBuffer : xBoundMax;
 xBoundMin = Math.floor(x_0 - xBuffer);
@@ -65,12 +65,53 @@ var div = Numbas.extensions.jsxgraph.makeBoard('400px','400px',
 
 var board = div.board;
 
+function optimalTickDistance(minVal, maxVal, targetTicks) {
+  // optimal ticks should be between 10 and 25
+  var dist = maxVal -minVal;
+  // Determine optimal ticks
+  var axisSpaceMultiple = [1, 2, 5];
+  var order = 1;
+
+  // var maxTickDist = dist/10;
+  // var minTickDist = dist/25;
+  var targetTickDist = dist/targetTicks;
+  // var log10max = Math.log(maxTickDist) * Math.LOG10E;
+  // var log10min = Math.log(minTickDist) * Math.LOG10E;
+  var targetLog10 = Math.log(targetTickDist) * Math.LOG10E;
+  
+  var exponent = Math.floor(targetLog10);
+  var remainder = targetLog10 - exponent;
+
+  // Try 1
+  var multiple = 1;
+  var bestDiff = Math.abs(Math.log(1) * Math.LOG10E - remainder);
+  // Try 2
+  var tryDiff = Math.abs(Math.log(2) * Math.LOG10E - remainder);
+  if (tryDiff < bestDiff) {
+    bestDiff = tryDiff;
+    multiple = 2;
+  }
+  // Try 5
+  var tryDiff = Math.abs(Math.log(5) * Math.LOG10E - remainder);
+  if (tryDiff < bestDiff) {
+    bestDiff = tryDiff;
+    multiple = 5;
+  }
+  // Try 10
+  var tryDiff = Math.abs(Math.log(10) * Math.LOG10E - remainder);
+  if (tryDiff < bestDiff) {
+    bestDiff = tryDiff;
+    multiple = 10;
+  }
+  return multiple * Math.pow(10, exponent);
+}
+
 var xaxis = board.create('line', [[0, 0], [1, 0]],
     {
       strokeColor: 'black',
       fixed: true
     });
-var xticks = board.create('ticks', [xaxis, 1],
+var xticks = board.create('ticks', [xaxis, optimalTickDistance(xBoundMin, xBoundMax, 10)],
     {
       drawLabels: true,
       label: {offset: [-4, -15]},
@@ -82,7 +123,7 @@ var yaxis = board.create('line', [[0, 0], [0, 1]],
       strokeColor: 'black',
       fixed: true
     });
-var yticks = board.create('ticks', [yaxis, 1],
+var yticks = board.create('ticks', [yaxis,  optimalTickDistance(yBoundMin, yBoundMax, 20)],
     {
       drawLabels: true,
       label: {offset: [-20, 0]},
@@ -93,7 +134,7 @@ var yticks = board.create('ticks', [yaxis, 1],
 
 
 var curveline = board.create('functiongraph',
-                [equation, -2, 16]);
+                [equation, xBoundMin, xBoundMax]);
 var x = [];
 // for (var i=0; i<= length/barWidth + 0.00000000001; i++) {
 console.log('x_0, x_1, barWidth');
@@ -102,14 +143,12 @@ for (var xStep = x_0; xStep <= x_1 - barWidth + 0.00000000001; xStep += barWidth
   x.push(xStep);
 }
 
-//var fbar = [5, 6, 7, 8];
-var riemannStyle = 'left';
 var fbar = [];
 x.forEach(function(xVal){
   var fbarVal;
-  if (riemannStyle === 'left') {
+  if (riemannMode === 'left') {
     fbarVal = equation(xVal);
-  } else if (riemannStyle === 'mid') {
+  } else if (riemannMode === 'mid') {
     fbarVal = equation(xVal + 0.5 * barWidth);
   } else {
     fbarVal = equation(xVal + barWidth);
