@@ -75,16 +75,8 @@ function optimalTickDistance(minVal, maxVal, targetTicks) {
   // optimal ticks should be between 10 and 25
   var dist = maxVal -minVal;
   // Determine optimal ticks
-  var axisSpaceMultiple = [1, 2, 5];
-  var order = 1;
-
-  // var maxTickDist = dist/10;
-  // var minTickDist = dist/25;
   var targetTickDist = dist/targetTicks;
-  // var log10max = Math.log(maxTickDist) * Math.LOG10E;
-  // var log10min = Math.log(minTickDist) * Math.LOG10E;
   var targetLog10 = Math.log(targetTickDist) * Math.LOG10E;
-  
   var exponent = Math.floor(targetLog10);
   var remainder = targetLog10 - exponent;
 
@@ -136,13 +128,9 @@ var yticks = board.create('ticks', [yaxis,  optimalTickDistance(yBoundMin, yBoun
       minorTicks: 0
     });
 
-
-
-
 var curveline = board.create('functiongraph',
-                [equation, xBoundMin, xBoundMax]);
+    [equation, xBoundMin, xBoundMax]);
 var x = [];
-// for (var i=0; i<= length/barWidth + 0.00000000001; i++) {
 console.log('x_0, x_1, barWidth');
 console.log(x_0, x_1, barWidth);
 for (var xStep = x_0; xStep <= x_1 - barWidth + 0.00000000001; xStep += barWidth) {
@@ -179,10 +167,6 @@ x.forEach(function(xVal){
   var poly = board.createElement('polygon', [p1, p2, p3, p4]);
 });
 
-
 // http://jsxgraph.uni-bayreuth.de/wiki/index.php/Polygon
-
-
-// Perform a definite integral on the function
 
 return div;
