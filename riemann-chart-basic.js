@@ -14,12 +14,18 @@ if(compiledExpression === null) {
   throw(new Error('No equation'));
 }
 
-function equation(x){
-  // return a*x*x + b*x + c;
+function equation(x) {
   // Create a JME scope with the variable x set to the given value.
   var nscope = new Numbas.jme.Scope([
       Numbas.jme.builtinScope,
-      {variables: {x: new Numbas.jme.types.TNum(x)}}
+      {
+        variables: {
+          x: new Numbas.jme.types.TNum(x),
+          a: new Numbas.jme.types.TNum(a),
+          b: new Numbas.jme.types.TNum(b),
+          c: new Numbas.jme.types.TNum(c)
+        }
+      }
   ]);
   return Numbas.jme.evaluate(compiledExpression, nscope).value;
 }
