@@ -145,23 +145,31 @@ for (var xStep = x_0; xStep <= x_1 - barWidth + 0.00000000001; xStep += barWidth
 
 var fbar = [];
 x.forEach(function(xVal){
-  var fbarVal;
-  if (riemannMode === 'left') {
-    fbarVal = equation(xVal);
-  } else if (riemannMode === 'mid') {
-    fbarVal = equation(xVal + 0.5 * barWidth);
+  if (riemannMode === 'trapezoid') {
+    var p1 = board.create('point', [xVal, equation(xVal)], {name: '', size: 0, strokeColor: 'blue'});
+    var p2 = board.create('point', [xVal, 0], {name: '', size: 0, strokeColor: 'blue'});
+    var p3 = board.create('point', [xVal + barWidth, 0], {name: '', size: 0, strokeColor: 'blue'});
+    var p4 = board.create('point', [xVal + barWidth, equation(xVal + barWidth)], {name: '', size: 0, strokeColor: 'blue'});
   } else {
-    fbarVal = equation(xVal + barWidth);
+    var fbarVal;
+    if (riemannMode === 'left') {
+      fbarVal = equation(xVal);
+    } else if (riemannMode === 'mid') {
+      fbarVal = equation(xVal + 0.5 * barWidth);
+    } else if (riemannMode === 'right')  {
+      fbarVal = equation(xVal + barWidth);
+    } else {
+      throw new Error('riemannMode should be set to lift, mid right or trapezoid');
+    }
+
+    fbar.push(fbarVal);
+    var label = fbarVal * barWidth; // Area
+
+    var p1 = board.create('point', [xVal, fbarVal], {name: '', size: 0, strokeColor: 'blue'});
+    var p2 = board.create('point', [xVal, 0], {name: '', size: 0, strokeColor: 'blue'});
+    var p3 = board.create('point', [xVal + barWidth, 0], {name: '', size: 0, strokeColor: 'blue'});
+    var p4 = board.create('point', [xVal + barWidth, fbarVal], {name: '', size: 0, strokeColor: 'blue'});
   }
-
-  fbar.push(fbarVal);
-  var label = fbarVal * barWidth;
-
-  var p1 = board.create('point', [xVal, fbarVal], {name: '', size:0, strokeColor:'blue'});
-  var p2 = board.create('point', [xVal, 0], {name: '', size:0, strokeColor:'blue'});
-  var p3 = board.create('point', [xVal + barWidth, 0], {name: '', size:0, strokeColor:'blue'});
-  var p4 = board.create('point', [xVal + barWidth, fbarVal], {name: '', size:0, strokeColor:'blue'});
-
   var poly = board.createElement('polygon', [p1, p2, p3, p4]);
 });
 
