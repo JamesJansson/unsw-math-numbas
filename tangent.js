@@ -125,6 +125,10 @@ var yticks = board.create('ticks', [yaxis,  optimalTickDistance(yBoundMin, yBoun
 
 var curveline = board.create('functiongraph',
     [equation, xBoundMin, xBoundMax]);
+
+var g1 = board.create('glider', [0.6, 1.2, curveline]);
+var t1 = board.create('tangent', [g1]);
+
 var x = [];
 for (var xStep = x_0; xStep <= x_1 - barWidth + 0.00000000001; xStep += barWidth) {
   x.push(xStep);
