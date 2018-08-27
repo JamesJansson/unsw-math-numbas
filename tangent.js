@@ -1,7 +1,3 @@
-// Code partially inspired by 
-// Use student input in a JSXGraph diagram by Christian Lawson-Perfect
-// https://numbas.mathcentre.ac.uk/question/2223/use-student-input-in-a-jsxgraph-diagram/
-
 // Get equation, interpret
 // var equationString = question.parts[0].gaps[0].display.studentAnswer();
 var compiledExpression = Numbas.jme.compile(equationString, scope);
