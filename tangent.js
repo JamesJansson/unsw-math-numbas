@@ -129,41 +129,6 @@ var curveline = board.create('functiongraph',
 var g1 = board.create('glider', [0.6, 1.2, curveline]);
 var t1 = board.create('tangent', [g1]);
 
-var x = [];
-for (var xStep = x_0; xStep <= x_1 - barWidth + 0.00000000001; xStep += barWidth) {
-  x.push(xStep);
-}
-
-var fbar = [];
-x.forEach(function(xVal){
-  if (riemannMode === 'trapezoid') {
-    var p1 = board.create('point', [xVal, equation(xVal)], {name: '', size: 0, strokeColor: 'blue'});
-    var p2 = board.create('point', [xVal, 0], {name: '', size: 0, strokeColor: 'blue'});
-    var p3 = board.create('point', [xVal + barWidth, 0], {name: '', size: 0, strokeColor: 'blue'});
-    var p4 = board.create('point', [xVal + barWidth, equation(xVal + barWidth)], {name: '', size: 0, strokeColor: 'blue'});
-  } else {
-    var fbarVal;
-    if (riemannMode === 'left') {
-      fbarVal = equation(xVal);
-    } else if (riemannMode === 'mid') {
-      fbarVal = equation(xVal + 0.5 * barWidth);
-    } else if (riemannMode === 'right')  {
-      fbarVal = equation(xVal + barWidth);
-    } else {
-      throw new Error('riemannMode should be set to lift, mid right or trapezoid');
-    }
-
-    fbar.push(fbarVal);
-    var label = fbarVal * barWidth; // Area
-
-    var p1 = board.create('point', [xVal, fbarVal], {name: '', size: 0, strokeColor: 'blue'});
-    var p2 = board.create('point', [xVal, 0], {name: '', size: 0, strokeColor: 'blue'});
-    var p3 = board.create('point', [xVal + barWidth, 0], {name: '', size: 0, strokeColor: 'blue'});
-    var p4 = board.create('point', [xVal + barWidth, fbarVal], {name: '', size: 0, strokeColor: 'blue'});
-  }
-  var poly = board.create('polygon', [p1, p2, p3, p4]);
-});
-
 // http://jsxgraph.uni-bayreuth.de/wiki/index.php/Polygon
 
 return div;
