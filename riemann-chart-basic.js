@@ -1,8 +1,3 @@
-// Next
-// Divide axis into 1,2,5 over 10^0, 10^1, 10^2, ...
-// Make a, b, c parameters
-
-
 // Code partially inspired by 
 // Use student input in a JSXGraph diagram by Christian Lawson-Perfect
 // https://numbas.mathcentre.ac.uk/question/2223/use-student-input-in-a-jsxgraph-diagram/
@@ -131,8 +126,6 @@ var yticks = board.create('ticks', [yaxis,  optimalTickDistance(yBoundMin, yBoun
 var curveline = board.create('functiongraph',
     [equation, xBoundMin, xBoundMax]);
 var x = [];
-console.log('x_0, x_1, barWidth');
-console.log(x_0, x_1, barWidth);
 for (var xStep = x_0; xStep <= x_1 - barWidth + 0.00000000001; xStep += barWidth) {
   x.push(xStep);
 }
@@ -164,7 +157,7 @@ x.forEach(function(xVal){
     var p3 = board.create('point', [xVal + barWidth, 0], {name: '', size: 0, strokeColor: 'blue'});
     var p4 = board.create('point', [xVal + barWidth, fbarVal], {name: '', size: 0, strokeColor: 'blue'});
   }
-  var poly = board.createElement('polygon', [p1, p2, p3, p4]);
+  var poly = board.create('polygon', [p1, p2, p3, p4]);
 });
 
 // http://jsxgraph.uni-bayreuth.de/wiki/index.php/Polygon
