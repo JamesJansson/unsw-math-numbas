@@ -1,33 +1,33 @@
 // Polynomial with integral turning points
 y = a*x^2 + b*x + c
 
-y' = c_1*(x - x_c1)
-y' = c_1*x - c_1*x_c1
-y = (c_1 * x ^ 2)/2  - c_1*x_c1*x + c_2
+y' = c_1*(x - x_s1)
+y' = c_1*x - c_1*x_s1
+y = (c_1 * x ^ 2)/2  - c_1*x_s1*x + c_2
 
 c_1 must be a multiple of 2, c_1>0 for minimum,  c_1<0 for maximum
-x_c1 is the x-position of the turning point
+x_s1 is the x-position of the turning point
 
 a = c_1/2 
-b = c_1*x_c1
+b = c_1*x_s1
 c = c_2
 
 
 =============================================================
 
 y = a*x^3 + b*x^2 + c*x + d
-y' = c_1*(x - x_c1)*(x - x_c2)
-y' = c_1*(x^2 - x_c1*x - x_c2*x + x_c1*x_c2)
-y' = c_1*(x^2 - (x_c1 + x_c2)*x + x_c1*x_c2)
-y = c_1*(x^3/3 - (x_c1 + x_c2)*x^2/2 + x_c1*x_c2*x) + c_2
+y' = c_1*(x - x_s1)*(x - x_s2)
+y' = c_1*(x^2 - x_s1*x - x_s2*x + x_s1*x_s2)
+y' = c_1*(x^2 - (x_s1 + x_s2)*x + x_s1*x_s2)
+y = c_1*(x^3/3 - (x_s1 + x_s2)*x^2/2 + x_s1*x_s2*x) + c_2
 
 a = c_1/3
-b = -(x_c1 + x_c2)/2
-c = x_c1*x_c2
+b = -(x_s1 + x_s2)/2
+c = x_s1*x_s2
 d = c_2
 
 Infection point
-y'' = c_1*(2*x - (x_c1 + x_c2))
-0 = c_1*(2*x_inflection - (x_c1 + x_c2))
-0 = 2*x_inflection - (x_c1 + x_c2)
-x_inflection = (x_c1 + x_c2) / 2
+y'' = c_1*(2*x - (x_s1 + x_s2))
+0 = c_1*(2*x_inflection - (x_s1 + x_s2))
+0 = 2*x_inflection - (x_s1 + x_s2)
+x_inflection = (x_s1 + x_s2) / 2
