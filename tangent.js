@@ -14,7 +14,8 @@ function equation(x) {
           x: new Numbas.jme.types.TNum(x),
           a: new Numbas.jme.types.TNum(a),
           b: new Numbas.jme.types.TNum(b),
-          c: new Numbas.jme.types.TNum(c)
+          c: new Numbas.jme.types.TNum(c),
+          c: new Numbas.jme.types.TNum(d)
         }
       }
   ]);
