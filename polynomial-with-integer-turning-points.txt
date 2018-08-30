@@ -28,6 +28,6 @@ d = c_2
 
 Infection point
 y'' = c_1*(2*x - (x_c1 + x_c2))
-0 = c_1*(2*x - (x_c1 + x_c2))
-0 = 2*x - (x_c1 + x_c2)
-x = (x_c1 + x_c2) / 2
+0 = c_1*(2*x_inflection - (x_c1 + x_c2))
+0 = 2*x_inflection - (x_c1 + x_c2)
+x_inflection = (x_c1 + x_c2) / 2
