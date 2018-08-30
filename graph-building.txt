@@ -1,0 +1,16 @@
+x -> 0+
+x -> 0-
+x -> inf
+x -> -inf
+Add points on the line that are at turning points
+Determine x_s1, x_s2, as well as the local maximum and minimum
+Determine  x_inflection
+What is the gradient
+
+// With all chart information on
+Identify x_s1 and x_s2 on the chart
+Identify x_inflection
+
+Identify x and y intercept
+
+Create
