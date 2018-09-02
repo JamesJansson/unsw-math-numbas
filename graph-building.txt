@@ -12,5 +12,10 @@ Identify x_s1 and x_s2 on the chart
 Identify x_inflection
 
 Identify x and y intercept
+Asymptotes 
+1/x + x 
+tan(x)
+x + e^-x
+sin(x)/x 
 
 Create
