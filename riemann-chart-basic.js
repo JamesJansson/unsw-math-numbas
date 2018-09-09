@@ -19,7 +19,7 @@ function equation(x) {
           a: new Numbas.jme.types.TNum(a),
           b: new Numbas.jme.types.TNum(b),
           c: new Numbas.jme.types.TNum(c),
-          c: new Numbas.jme.types.TNum(d)
+          d: new Numbas.jme.types.TNum(d)
         }
       }
   ]);
