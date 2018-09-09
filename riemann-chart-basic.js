@@ -38,7 +38,7 @@ xBoundMin = xBoundMin > -xBuffer ? -xBuffer : xBoundMin;
 
 // Determine the rough min and max range, given the domain of the question
 var length = x_chart_max - x_chart_min;
-var xTestStepSize = length / 10;
+var xTestStepSize = length / 20;
 var fMin, fMax;
 for (var xTest = x_chart_min; xTest <= x_chart_max; xTest += xTestStepSize) {
   var fVal = equation(xTest);
