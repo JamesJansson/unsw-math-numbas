@@ -26,11 +26,20 @@ function equation(x) {
   return Numbas.jme.evaluate(compiledExpression, nscope).value;
 }
 
+// x_chart_min and x_chart_max are the min and max positions of the interesting elements of the chart. 
+// We will make the chart bounds slightly larger, such that the interesting chart elements take up roughly 70% of the screen
+
+var xBuffer = (x_chart_max - x_chart_min) / 7;
+xBoundMax = Math.ceil(x_chart_max + xBuffer);
+xBoundMax = xBoundMax < xBuffer ? xBuffer : xBoundMax;
+xBoundMin = Math.floor(x_chart_min - xBuffer);
+xBoundMin = xBoundMin > -xBuffer ? -xBuffer : xBoundMin;
+
 // Determine the rough min and max range, given the domain of the question
-var length = x_1 - x_0;
+var length = x_chart_max - x_chart_min;
 var xTestStepSize = length / 10;
 var fMin, fMax;
-for (var xTest = x_0; xTest <= x_1; xTest += xTestStepSize) {
+for (var xTest = xBoundMin; xTest <= xBoundMax; xTest += xTestStepSize) {
   var fVal = equation(xTest);
   if (fMax === undefined) {
     fMax = fVal;
@@ -51,11 +60,7 @@ yBoundMax = yBoundMax < yBuffer ? yBuffer : yBoundMax;
 yBoundMin = Math.floor(fMin - yBuffer);
 yBoundMin = yBoundMin > -yBuffer ? -yBuffer : yBoundMin;
 
-var xBuffer = (x_1 - x_0) / 7;
-xBoundMax = Math.ceil(x_1 + xBuffer);
-xBoundMax = xBoundMax < xBuffer ? xBuffer : xBoundMax;
-xBoundMin = Math.floor(x_0 - xBuffer);
-xBoundMin = xBoundMin > -xBuffer ? -xBuffer : xBoundMin;
+
 
 var div = Numbas.extensions.jsxgraph.makeBoard('400px','400px', 
   {
