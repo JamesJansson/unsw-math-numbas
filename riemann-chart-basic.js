@@ -16,10 +16,11 @@ function equation(x) {
       {
         variables: {
           x: new Numbas.jme.types.TNum(x),
-          a: new Numbas.jme.types.TNum(a),
-          b: new Numbas.jme.types.TNum(b),
-          c: new Numbas.jme.types.TNum(c),
-          d: new Numbas.jme.types.TNum(d)
+          c_4: new Numbas.jme.types.TNum(c_4),
+          c_3: new Numbas.jme.types.TNum(c_3),
+          c_2: new Numbas.jme.types.TNum(c_2),
+          c_1: new Numbas.jme.types.TNum(c_1),
+          c_0: new Numbas.jme.types.TNum(c_0)
         }
       }
   ]);
