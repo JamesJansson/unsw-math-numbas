@@ -54,7 +54,7 @@ y = b_1*(x^4/4 - (x_s1 + x_s2 + x_s3)/3*x^3 + (x_s1*x_s2 + x_s1*x_s3 + x_s2*x_s3
 c_4 = b_1/4
 c_3 = -b_1*(x_s1 + x_s2 + x_s3)/3
 c_2 = b_1*(x_s1*x_s2 + x_s1*x_s3 + x_s2*x_s3)/2
-c_1 = -b_1*x_s3*x_s1*x_s2*x
+c_1 = -b_1*x_s3*x_s1*x_s2
 c_0 = b_0
 
 Infection point
