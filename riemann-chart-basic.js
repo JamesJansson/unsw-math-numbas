@@ -131,13 +131,13 @@ var yticks = board.create('ticks', [yaxis,  optimalTickDistance(yBoundMin, yBoun
 
 var curveline = board.create('functiongraph',
     [equation, xBoundMin, xBoundMax]);
-var x = [];
+var xStepArray = [];
 for (var xStep = x_0; xStep <= x_1 - barWidth + 0.00000000001; xStep += barWidth) {
-  x.push(xStep);
+  xStepArray.push(xStep);
 }
 
 var fbar = [];
-x.forEach(function(xVal){
+xStepArray.forEach(function(xVal){
   if (riemannMode === 'trapezoid') {
     var p1 = board.create('point', [xVal, equation(xVal)], {name: '', size: 0, strokeColor: 'blue'});
     var p2 = board.create('point', [xVal, 0], {name: '', size: 0, strokeColor: 'blue'});
