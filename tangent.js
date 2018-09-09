@@ -58,7 +58,7 @@ var div = Numbas.extensions.jsxgraph.makeBoard('400px','400px',
     boundingBox: [xBoundMin, yBoundMax, xBoundMax, yBoundMin], // xmin, ymax, xmax, ymin
     axis: false,
     showNavigation: false,
-    grid: true
+    grid: false
   });
 
 var board = div.board;
