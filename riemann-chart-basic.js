@@ -61,8 +61,6 @@ yBoundMax = yBoundMax < yBuffer ? yBuffer : yBoundMax;
 yBoundMin = Math.floor(fMin - yBuffer);
 yBoundMin = yBoundMin > -yBuffer ? -yBuffer : yBoundMin;
 
-
-
 var div = Numbas.extensions.jsxgraph.makeBoard('400px','400px', 
   {
     boundingBox: [xBoundMin, yBoundMax, xBoundMax, yBoundMin], // xmin, ymax, xmax, ymin
