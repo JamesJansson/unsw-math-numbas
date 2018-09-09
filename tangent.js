@@ -26,7 +26,8 @@ function equation(x) {
 // x_chart_min and x_chart_max are the min and max positions of the interesting elements of the chart. 
 // We will make the chart bounds slightly larger, such that the interesting chart elements take up roughly 70% of the screen
 
-var xBuffer = (x_chart_max - x_chart_min) / 7;
+var bufferProp = 0.1;
+var xBuffer = bufferProp * (x_chart_max - x_chart_min);
 xBoundMax = Math.ceil(x_chart_max + xBuffer);
 xBoundMax = xBoundMax < xBuffer ? xBuffer : xBoundMax;
 xBoundMin = Math.floor(x_chart_min - xBuffer);
@@ -51,7 +52,7 @@ for (var xTest = x_chart_min; xTest <= x_chart_max; xTest += xTestStepSize) {
     fMin = fVal;
   }
 }
-var yBuffer = (fMax - fMin) / 7;
+var yBuffer = Math.max(bufferProp*(fMax - fMin), bufferProp*(fMax - 0), bufferProp*(0 - fMin));
 yBoundMax = Math.ceil(fMax + yBuffer);
 yBoundMax = yBoundMax < yBuffer ? yBuffer : yBoundMax;
 yBoundMin = Math.floor(fMin - yBuffer);
