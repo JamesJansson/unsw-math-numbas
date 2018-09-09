@@ -5,11 +5,6 @@ if(compiledExpression === null) {
   throw(new Error('No equation'));
 }
 
-console.log(Numbas.exam.currentQuestion)
-
-console.log(Numbas.jme.variables);
-//Numbas.jme.variables.makeVariables(['testmv1', 'testmv2'], Numbas.jme.builtinScope);
-
 function equation(x) {
   // Create a JME scope with the variable x set to the given value.
   var nscope = new Numbas.jme.Scope([
