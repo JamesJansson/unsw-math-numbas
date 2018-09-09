@@ -18,4 +18,6 @@ tan(x)
 x + e^-x
 sin(x)/x 
 
-Create
+First step: find y' as x-> infinity
+Then, create a line with the function y=mx+b
+set y=f(x), e.g. x + e^-x = mx + b
