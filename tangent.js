@@ -36,7 +36,7 @@ xBoundMin = xBoundMin > -xBuffer ? -xBuffer : xBoundMin;
 var length = x_chart_max - x_chart_min;
 var xTestStepSize = length / 10;
 var fMin, fMax;
-for (var xTest = xBoundMin; xTest <= xBoundMax; xTest += xTestStepSize) {
+for (var xTest = x_chart_min; xTest <= x_chart_max; xTest += xTestStepSize) {
   var fVal = equation(xTest);
   if (fMax === undefined) {
     fMax = fVal;
