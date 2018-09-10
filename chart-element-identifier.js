@@ -23,6 +23,15 @@ function equation(x) {
   return Numbas.jme.evaluate(compiledExpression, nscope).value;
 }
 
+// Optimise to find x-intercepts
+if (expectedXIntercepts > 0) {
+  // start a range
+  if (expectedXIntercepts === 1) {
+    
+  }
+}
+
+
 // x_chart_min and x_chart_max are the min and max positions of the interesting elements of the chart. 
 // We will make the chart bounds slightly larger, such that the interesting chart elements take up roughly 70% of the screen
 var bufferProp = 0.1;

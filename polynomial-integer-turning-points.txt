@@ -70,6 +70,8 @@ The above logic should avoid x-intercept clashes, as well, as multiple roots are
 =============================================================
 Quartic
 y = c_4*x^4 + c_3*x^3 + c_2*x^2 + c_1*x + c_0
+
+// Starting with 3 steady points
 y' = b_1*(x - x_s1)*(x - x_s2)*(x - x_s3)
 y' = b_1*(x^2 - x_s1*x - x_s2*x + x_s1*x_s2)*(x - x_s3)
 y' = b_1*(x^2 - (x_s1 + x_s2)*x + x_s1*x_s2)*(x - x_s3)
@@ -84,6 +86,10 @@ c_3 = -b_1*(x_s1 + x_s2 + x_s3)/3
 c_2 = b_1*(x_s1*x_s2 + x_s1*x_s3 + x_s2*x_s3)/2
 c_1 = -b_1*x_s3*x_s1*x_s2
 c_0 = b_0
+
+y' = 4*c_4*x^3 + 3c_3*x^2 + 2c_2*x + c_1
+
+Use Netwon's method to find roots
 
 Infection point
 y'' = b_1*(3x^2 - 2(x_s1 + x_s2 + x_s3)*x + (x_s1*x_s2 + x_s1*x_s3 + x_s2*x_s3))
