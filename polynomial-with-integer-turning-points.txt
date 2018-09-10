@@ -50,6 +50,13 @@ For 1 x intercept
 ((y_s1 > 0 and y_s2 > 0) or (y_s1 < 0 and y_s2 < 0))
 
 
+y_intercept <> 0 (to avoid x intercept and y intercept clashes)
+x_s1 <> 0 and x_s2 <> 0 (to avoid y intercept and stable point clashes)
+y_s1 <> 0 and y_s2 <> 0 (to avoid x intercept and stable point clashes)
+x_s1 <> x_s2 (to avoid stable point clashes)
+The above logic should avoid x-intercept clashes, as well, as multiple roots are only possible on stable points. 
+
+
 
 =============================================================
 Quartic
