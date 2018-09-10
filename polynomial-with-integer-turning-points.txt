@@ -16,12 +16,17 @@ c_2 = b_1/2
 c_1 = b_1*x_s1
 c_0 = b_0
 
+Intercepts
+----------
 For 0 x-intercepts
 (c_2>0 and y_s1>0) or (c_2<0 and y_s1<0)
 For 2 x-intercepts
 (c_2>0 and y_s1<0) or (c_2<0 and y_s1>0)
 
-
+General curve logic (to avoid conflicts)
+----------------------------------------
+y_intercept <> 0 (to avoid x intercept and y intercept clashes)
+x_s1 <> 0 (to avoid y intercept and stable point clashes)
 
 =============================================================
 Cubic
@@ -45,13 +50,15 @@ x_inf1 = (x_s1 + x_s2) / 2
 
 Set x_s1 = x_s2 to get a single steady point.
 
-For 3 x intercepts
-((y_s1 > 0 and y_s2 < 0) or (y_s1 < 0 and y_s2 > 0))
+Intercepts
+----------
 For 1 x intercept
 ((y_s1 > 0 and y_s2 > 0) or (y_s1 < 0 and y_s2 < 0))
+For 3 x intercepts
+((y_s1 > 0 and y_s2 < 0) or (y_s1 < 0 and y_s2 > 0))
 
-=====================================
 General curve logic (to avoid conflicts)
+----------------------------------------
 y_intercept <> 0 (to avoid x intercept and y intercept clashes)
 x_s1 <> 0 and x_s2 <> 0 (to avoid y intercept and stable point clashes)
 y_s1 <> 0 and y_s2 <> 0 (to avoid x intercept and stable point clashes)
@@ -91,14 +98,19 @@ x = 1/3 (sqrt(a^2 - a b - a c + b^2 - b c + c^2) + a + b + c)
 x_inf1 = 1/3 (-sqrt(x_s1^2 - x_s1*x_s2 - x_s1*x_s3 + x_s2^2 - x_s2*x_s3 + x_s3^2) + x_s1 + x_s2 + x_s3)
 x_inf2 = 1/3 ( sqrt(x_s1^2 - x_s1*x_s2 - x_s1*x_s3 + x_s2^2 - x_s2*x_s3 + x_s3^2) + x_s1 + x_s2 + x_s3)
 
-
+Intercepts
+----------
 For 0 x-intercepts
 (c_4>0 and y_s1>0 and y_s2>0 and y_s3>0) or (c_4<0 and y_s1<0 and y_s2<0 and y_s3<0)
-For 2 x-intercepts
-(c_4>0 and y_s1<0 and y_s2<0 and y_s3<0) or (c_4<0 and y_s1>0 and y_s2>0 and y_s2>0)
+For 2 x-intercepts (certainty)
+(c_4>0 and y_s1<0 and y_s2<0 and y_s3<0) or (c_4<0 and y_s1>0 and y_s2>0 and y_s2>0) or (y_s1>0 and y_s3<0) or (y_s1<0 and y_s3>0)
 
-=====================================
+Nice params
+-----------
+mod(b_1*(x_s1 + x_s2 + x_s3),3)=0 to ensure no .333333... params
+
 General curve logic (to avoid conflicts)
+----------------------------------------
 y_intercept <> 0 (to avoid x intercept and y intercept clashes)
 x_s1 <> 0 and x_s2 <> 0 and x_s3 <> 0 (to avoid y intercept and stable point clashes)
 y_s1 <> 0 and y_s2 <> 0 and y_s3 <> 0 (to avoid x intercept and stable point clashes)
