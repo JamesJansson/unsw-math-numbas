@@ -16,6 +16,11 @@ c_2 = b_1/2
 c_1 = b_1*x_s1
 c_0 = b_0
 
+For 2 x-intercepts
+(c_2>0 and y_s1<0) or (c_2<0 and y_s1>0)
+For 0 x-intercepts
+(c_2>0 and y_s1>0) or (c_2<0 and y_s1<0)
+
 
 =============================================================
 Cubic
@@ -36,6 +41,13 @@ y'' = b_1*(2*x - (x_s1 + x_s2))
 0 = b_1*(2*x_inf1 - (x_s1 + x_s2))
 0 = 2*x_inf1 - (x_s1 + x_s2)
 x_inf1 = (x_s1 + x_s2) / 2
+
+Set x_s1 = x_s2 to get a single steady point.
+
+For 3 x intercepts
+((y_s1 > 0 and y_s2 < 0) or (y_s1 < 0 and y_s2 > 0))
+For 1 x intercept
+((y_s1 > 0 and y_s2 > 0) or (y_s1 < 0 and y_s2 < 0))
 
 
 

@@ -1,0 +1,28 @@
+Three zero
+
+y = b_1 * (x - x_int1) * (x - x_int2) * (x - x_int3)
+
+y = b_1 * (x^2 - x_int1*x - x_int2*x + x_int1*x_int2) * (x - x_int3)
+y = b_1 * (x^2 - (x_int1*x + x_int2)*x + x_int1*x_int2) * (x - x_int3)
+y = b_1 * (x^3 - (x_int1*x + x_int2)*x^2 + x_int1*x_int2*x - x_int3 * x^2 + x_int3*(x_int1*x + x_int2)*x - x_int1*x_int2*x_int3)
+y = b_1 * (x^3 - (x_int1*x + x_int2 + x_int3)*x^2 + (x_int1*x_int2 + x_int3*x_int1 + x_int3*x_int2)*x - x_int1*x_int2*x_int3)
+
+y' = b_1 * (3x^2 - 2*(x_int1*x + x_int2 + x_int3)*x + (x_int1*x_int2 + x_int3*x_int1 + x_int3*x_int2))
+
+Make sure b^2-4ac > 0, and is preferably a square, in order to get multiple steady points
+
+One zero
+Three zeros is
+y = b_1 * (x - x_int1) * (x - x_int2) * (x - x_int3)
+We need x_int2 and x_int3 to be imaginary. Rewrite as 
+y = b_1 * (x - x_int1) * (x - i*x_int2) * (x + i*x_int2)
+y = b_1 * (x - x_int1) * (x^2 - i^2*x_int2^2)
+y = b_1 * (x - x_int1) * (x^2 + x_int2^2)
+
+y = b_1 * (x^3 - x_int1*x^2 + x_int2^2*x - x_int2^2*x_int1)
+y = b_1 * (x^3 - x_int1*x^2 + x_int2^2*x - x_int2^2*x_int1)
+
+y' = b_1 * (3x^2 - 2*x_int1*x + x_int2^2)
+
+Make sure b^2-4ac > 0, and is preferably a square, in order to get multiple steady points
+
