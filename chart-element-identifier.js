@@ -4,7 +4,6 @@ var compiledExpression = Numbas.jme.compile(equationString, scope);
 if(compiledExpression === null) {
   throw(new Error('No equation'));
 }
-
 function equation(x) {
   // Create a JME scope with the variable x set to the given value.
   var nscope = new Numbas.jme.Scope([
@@ -23,11 +22,38 @@ function equation(x) {
   return Numbas.jme.evaluate(compiledExpression, nscope).value;
 }
 
+var compiledExpressionDifferential = Numbas.jme.compile(differentialString, scope);
+if(compiledExpressionDifferential === null) {
+  throw(new Error('No equation'));
+}
+function differential(x) {
+  // Create a JME scope with the variable x set to the given value.
+  var nscope = new Numbas.jme.Scope([
+      Numbas.jme.builtinScope,
+      {
+        variables: {
+          x: new Numbas.jme.types.TNum(x),
+          c_4: new Numbas.jme.types.TNum(c_4),
+          c_3: new Numbas.jme.types.TNum(c_3),
+          c_2: new Numbas.jme.types.TNum(c_2),
+          c_1: new Numbas.jme.types.TNum(c_1),
+          c_0: new Numbas.jme.types.TNum(c_0)
+        }
+      }
+  ]);
+  return Numbas.jme.evaluate(compiledExpressionDifferential, nscope).value;
+}
+
 // Optimise to find x-intercepts
 if (expectedXIntercepts > 0) {
   // start a range
   if (expectedXIntercepts === 1) {
+    // Start in the middle
+
+  } else if (expectedXIntercepts === 2) {
+    // Start 10% to the left of the range, hope converges to left point (should for quadratics and quartics)
     
+    // 
   }
 }
 
