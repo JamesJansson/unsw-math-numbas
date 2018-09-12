@@ -44,6 +44,54 @@ function differential(x) {
   return Numbas.jme.evaluate(compiledExpressionDifferential, nscope).value;
 }
 
+/**
+ * 
+ */
+
+function newtonsMethod(inputFunction, inputFunctionDerivative, estimate, options) {
+  var countLimit = 10000;
+  if (typeof options.countLimit === 'number') {
+    countLimit = options.countLimit
+  }
+  var accuracy = 1E-5;
+  if (typeof options.accuracy === 'number') {
+    accuracy = options.accuracy
+  }
+
+  return privateNewtonsMethod(inputFunction, inputFunctionDerivative, estimate, accuracy, countLimit);
+
+  // recursive function that 
+  function privateNewtonsMethod(inputFunction, inputFunctionDerivative, estimate, accuracy, countLimit, startEstimate, lastEstimate, count) {
+    if (estimate === undefined || isNan(estimate) || !isFinite(estimate)){
+      throw "Newton's method failed to find function roots. Possible discontinunity in provided function or its derivative";
+    }
+    if (inputFunction(estimate) === 0) {
+      return estimate;
+    }
+    if (count === undefined) {
+      count = 0;
+    }
+    if (startEstimate === undefined) {
+      startEstimate = estimate;
+    }
+    if (lastEstimate !== undefined) {
+      // If we have exhausted the number of loops
+      if (count >= countLimit) {
+        return estimate;
+      }
+      // If the difference between the last estimate and the 
+      // current estimate < a millionth of the distance between the last estimate and the current estimate, stop
+      if (Math.abs(lastEstimate - estimate) < Math.abs(accuracy * (startEstimate - estimate))) {
+        return estimate;
+      }
+    }
+    count++;
+    var lastEstimate = estimate;
+    var nextEstimate = estimate - inputFunction(estimate) / inputFunctionDerivative(estimate);
+    return privateNewtonsMethod(inputFunction, inputFunctionDerivative, estimate, accuracy, countLimit, startEstimate, lastEstimate, count);
+  }
+}
+
 // Optimise to find x-intercepts
 if (expectedXIntercepts > 0) {
   // start a range
