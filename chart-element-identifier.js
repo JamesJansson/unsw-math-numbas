@@ -118,8 +118,8 @@ function newtonsMethod(inputFunction, inputFunctionDerivative, estimate, options
 if (expectedXIntercepts > 0) {
   // start a range
   if (expectedXIntercepts === 1) {
-    // Start in the middle
-
+    // Start in the middle of the range
+    var root1 = newtonsMethod(equation, differential, (x_chart_max + x_chart_min)/2);
   } else if (expectedXIntercepts === 2) {
     // Start 10% to the left of the range, hope converges to left point (should for quadratics and quartics)
     
