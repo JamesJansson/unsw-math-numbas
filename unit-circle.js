@@ -2,7 +2,7 @@
 
 var spacing = 1; // space between the circle and the graph
 
-var div = Numbas.extensions.jsxgraph.makeBoard('800px','400px', 
+var div = Numbas.extensions.jsxgraph.makeBoard('900px','223px', 
   {
     boundingBox: [-1.2, 1.2, 1+spacing+2*Math.PI+0.2, -1.2], // xmin, ymax, xmax, ymin
     axis: false,
