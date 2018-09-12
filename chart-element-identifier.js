@@ -179,6 +179,7 @@ function midpointOptimisation(equation, x0, x1) {
 // midpointOptimisation(y, 10, 2);
 
 var root=[];
+var leftRoot, rightRoot;
 // Optimise to find x-intercepts
 if (expected_x_intercepts > 0) {
   // start a range
@@ -187,14 +188,20 @@ if (expected_x_intercepts > 0) {
     var testRoot1 = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
     var testRoot2 = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
     root[0] = equation(testRoot1) < equation(testRoot2) ? testRoot1 : testRoot2;
+    leftRoot = root[0];
+    rightRoot = root[0];
   } else if (expected_x_intercepts === 2) {
     // Start to the left of the range, hope converges to left point (should for quadratics and quartics)
     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
     root[1] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
+    leftRoot = root[0];
+    rightRoot = root[1];
   } else if (expected_x_intercepts === 3) {
     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
     root[2] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
     root[1] = midpointOptimisation(equation, root[0], root[2]);
+    leftRoot = root[0];
+    rightRoot = root[2];
   }
 }
 
@@ -202,11 +209,11 @@ if (expected_x_intercepts > 0) {
 // x_chart_min and x_chart_max are the min and max positions of the interesting elements of the chart. 
 // We will make the chart bounds slightly larger, such that the interesting chart elements take up roughly 70% of the screen
 var bufferProp = 0.1;
+xBoundMin = Math.min(0, leftRoot, x_chart_min);
+xBoundMax = Math.max(0, rightRoot, x_chart_max);
 var xBuffer = bufferProp * (x_chart_max - x_chart_min);
-xBoundMax = Math.ceil(x_chart_max + xBuffer);
-xBoundMax = xBoundMax < xBuffer ? xBuffer : xBoundMax;
-xBoundMin = Math.floor(x_chart_min - xBuffer);
-xBoundMin = xBoundMin > -xBuffer ? -xBuffer : xBoundMin;
+xBoundMin = xBoundMin - xBuffer;
+xBoundMax = xBoundMax + xBuffer;
 
 // Determine the rough min and max range, given the domain of the question
 var length = x_chart_max - x_chart_min;
@@ -303,11 +310,36 @@ var yticks = board.create('ticks', [yaxis,  optimalTickDistance(yBoundMin, yBoun
 var curveline = board.create('functiongraph',
     [equation, xBoundMin, xBoundMax]);
 
-var g1 = board.create('glider', [0.6, 1.2, curveline]);
-var t1 = board.create('tangent', [g1]);
+// var g1 = board.create('glider', [0.6, 1.2, curveline]);
+// var t1 = board.create('tangent', [g1]);
 
 // y intercept, turning points, infection points, x intercepts
-var g2 = board.create('glider', [0, equation(0), curveline]);
+// var g2 = board.create('glider', [0, equation(0), curveline]);
+
+p1 = board.create('point',[0,equation(0)], {name:'A', face:'o', size:1});
+p1.setProperty({fixed:true});
+p2 = board.create('point',[x_s1,equation(x_s1)], {name:'B', face:'o', size:1});
+p2.setProperty({fixed:true});
+p2 = board.create('point',[x_s2,equation(x_s2)], {name:'C', face:'o', size:1});
+p2.setProperty({fixed:true});
+p2 = board.create('point',[x_s3,equation(x_s3)], {name:'D', face:'o', size:1});
+p2.setProperty({fixed:true});
+p2 = board.create('point',[x_s3,equation(x_s3)], {name:'D', face:'o', size:1});
+p2.setProperty({fixed:true});
+if (expected_x_intercepts > 0) {
+  p2 = board.create('point',[root[0],equation(root[0])], {name:'D', face:'o', size:1});
+  p2.setProperty({fixed:true});
+}
+if (expected_x_intercepts > 1) {
+  p2 = board.create('point',[root[1],equation(root[1])], {name:'D', face:'o', size:1});
+  p2.setProperty({fixed:true});
+}
+if (expected_x_intercepts > 2) {
+  p2 = board.create('point',[root[2],equation(root[2])], {name:'D', face:'o', size:1});
+  p2.setProperty({fixed:true});
+}
+
+// ['x-intercept', 'y-intercept', 'inflection point', 'local maximum', 'local minimum']
 
 // http://jsxgraph.uni-bayreuth.de/wiki/index.php/Polygon
 
