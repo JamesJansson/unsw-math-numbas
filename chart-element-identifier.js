@@ -1,6 +1,26 @@
+// Required vars
+'chart_elements('+
+'equation_string,'+
+'differential_string,'+
+'c_0,'+
+'c_1,'+
+'c_2,'+
+'c_3,'+
+'c_4,'+
+'x_chart_min,'+
+'x_chart_max,'+
+'expected_x_intercepts,'+
+'x_s1,'+
+'y_s1,'+
+'x_s2,'+
+'y_s2,'+
+'x_s3,'+
+'y_s3'+
+')'
+
 // Get equation, interpret
-// var equationString = question.parts[0].gaps[0].display.studentAnswer();
-var compiledExpression = Numbas.jme.compile(equationString, scope);
+// var equation_string = question.parts[0].gaps[0].display.studentAnswer();
+var compiledExpression = Numbas.jme.compile(equation_string, scope);
 if(compiledExpression === null) {
   throw(new Error('No equation'));
 }
@@ -22,7 +42,7 @@ function equation(x) {
   return Numbas.jme.evaluate(compiledExpression, nscope).value;
 }
 
-var compiledExpressionDifferential = Numbas.jme.compile(differentialString, scope);
+var compiledExpressionDifferential = Numbas.jme.compile(differential_string, scope);
 if(compiledExpressionDifferential === null) {
   throw(new Error('No equation'));
 }
@@ -49,6 +69,7 @@ function differential(x) {
  */
 
 function newtonsMethod(inputFunction, inputFunctionDerivative, estimate, options) {
+  options = options ? options : {};
   var iterationLimit = 100;
   if (typeof options.iterationLimit === 'number') {
     iterationLimit = options.iterationLimit
@@ -159,18 +180,18 @@ function midpointOptimisation(equation, x0, x1) {
 
 var root=[];
 // Optimise to find x-intercepts
-if (expectedXIntercepts > 0) {
+if (expected_x_intercepts > 0) {
   // start a range
-  if (expectedXIntercepts === 1) {
+  if (expected_x_intercepts === 1) {
     // Try from both sides, hopefully one works
     var testRoot1 = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
     var testRoot2 = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
     root[0] = equation(testRoot1) < equation(testRoot2) ? testRoot1 : testRoot2;
-  } else if (expectedXIntercepts === 2) {
+  } else if (expected_x_intercepts === 2) {
     // Start to the left of the range, hope converges to left point (should for quadratics and quartics)
     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
     root[1] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
-  } else if (expectedXIntercepts === 3) {
+  } else if (expected_x_intercepts === 3) {
     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
     root[2] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
     root[1] = midpointOptimisation(equation, root[0], root[2]);
@@ -284,6 +305,9 @@ var curveline = board.create('functiongraph',
 
 var g1 = board.create('glider', [0.6, 1.2, curveline]);
 var t1 = board.create('tangent', [g1]);
+
+// y intercept, turning points, infection points, x intercepts
+var g2 = board.create('glider', [0, equation(0), curveline]);
 
 // http://jsxgraph.uni-bayreuth.de/wiki/index.php/Polygon
 
