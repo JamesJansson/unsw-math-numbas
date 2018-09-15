@@ -27,18 +27,18 @@ var div = Numbas.extensions.jsxgraph.makeBoard('1080px','300px',
 var board = div.board;
 
 // LEFT CHART
-var pointCircle = board.create('point', [0, 0], {name: ''});
-pointCircle.setProperty({fixed:true});
-var circle = board.create('circle', [pointCircle, 1]); // [0,0]
+var pointCircleCentre = board.create('point', [0, 0], {name: ''});
+pointCircleCentre.setProperty({fixed:true});
+var circle = board.create('circle', [pointCircleCentre, 1]); // [0,0]
 var g1 = board.create('glider', [0.5, Math.sqrt(1 - Math.pow(0.5, 2)),  circle], {name: 'Drag this point'});
 
-var lineRadius = board.create('line', [pointCircle, g1], {straightFirst:false, straightLast:false});
+var lineRadius = board.create('line', [pointCircleCentre, g1], {straightFirst:false, straightLast:false});
 
 
 
 var arcPoint1 = board.create('point', [0.75, 0], arcPointStyle);
 var arcPoint2 = board.create('point', [function () {return 0.75*g1.X()}, function () {return 0.75*g1.Y()}], arcPointStyle);
-board.create('arc', [pointCircle, arcPoint1, arcPoint2], {strokeColor: '#b2b2b2'});
+board.create('arc', [pointCircleCentre, arcPoint1, arcPoint2], {strokeColor: '#b2b2b2'});
 
 
 var thetaDisplay = function () { return 'θ=' + Math.round(thetaFunc()/Math.PI * 100) / 100 + 'π'};
