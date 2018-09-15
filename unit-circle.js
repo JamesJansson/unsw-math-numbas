@@ -11,13 +11,13 @@ var axisPointStyleLeft = {size:0, strokeWidth:3, strokeColor: '#b2b2b2', fillCol
 var arcPointStyle = {name: '', size:0, strokeWidth:3, strokeColor: '#b2b2b2', fillColor: '#b2b2b2', fixed:true};
 
 // Ratio calc
-// y = 1.4 + 1.4 = 2.8
+// y = 1.8 + 1.8 = 3.6
 // x = 1.4 + (1+spacing+2*Math.PI+0.4) = 10.083185307179587
-// 1080 * 2.8 / 10.083185307179587 = 300
+// 1080 * 3.6 / 10.083185307179587 = 386
 
-var div = Numbas.extensions.jsxgraph.makeBoard('1080px','300px', 
+var div = Numbas.extensions.jsxgraph.makeBoard('1080px','386px', 
   {
-    boundingBox: [-1.4, 1.4, 1+spacing+2*Math.PI+0.4, -1.4], // xmin, ymax, xmax, ymin
+    boundingBox: [-1.4, 1.8, 1+spacing+2*Math.PI+0.4, -1.8], // xmin, ymax, xmax, ymin
     axis: false,
     showNavigation: false,
     grid: false
