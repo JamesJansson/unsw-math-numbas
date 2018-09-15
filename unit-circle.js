@@ -108,15 +108,15 @@ var func;
 if (functionType === 'sin') {
   func = function(t){ return Math.sin(t);};
   lineVerticalCircle.setProperty({strokeColor: '#BB0000'});
-  // lineRadius.setProperty({strokeColor: '#BB0000'});
 }
 if (functionType === 'cos') {
   func = function(t){ return Math.cos(t);};
   lineHorizontalCircle.setProperty({strokeColor: '#BB0000'});
-  // lineRadius.setProperty({strokeColor: '#BB0000'});
 }
 if (functionType === 'tan') {
   func = function(t){ return Math.tan(t);};
+  lineVerticalCircle.setProperty({strokeColor: '#BB0000'});
+  lineHorizontalCircle.setProperty({strokeColor: '#BB0000'});
 }
 
 
@@ -142,7 +142,7 @@ var graph = board.create('curve',
 var curvePoint = board.create('point', [function(){return thetaOffSet(thetaFunc())}, function(){return func(thetaFunc())}], {name: ''});
 var p4 = board.create('point', [function(){return thetaOffSet(thetaFunc())}, 0], {name: ''});
 
-var lineVerticalCurve = board.create('line', [curvePoint, p4], {straightFirst:false, straightLast:false});
+var lineVerticalCurve = board.create('line', [curvePoint, p4], {straightFirst:false, straightLast:false, strokeColor: '#BB0000'});
 
 
 // draw cross-graph dotted lines (only for sine)
