@@ -5,8 +5,9 @@ var spacing = 1; // space between the circle and the graph
 // Ratio calc
 // y = 1.4 + 1.4 = 2.8
 // x = 1.4 + (1+spacing+2*Math.PI+0.4) = 10.083185307179587
+// 900 * 2.8 / 10.083185307179587 = 250
 
-var div = Numbas.extensions.jsxgraph.makeBoard('900px','223px', 
+var div = Numbas.extensions.jsxgraph.makeBoard('900px','250px', 
   {
     boundingBox: [-1.4, 1.4, 1+spacing+2*Math.PI+0.4, -1.4], // xmin, ymax, xmax, ymin
     axis: false,
@@ -21,14 +22,14 @@ var board = div.board;
 var p1 = board.create('point', [0, 0], {name: ''});
 p1.setProperty({fixed:true});
 var circle = board.create('circle', [p1, 1]); // [0,0]
-var g1 = board.create('glider', [0.5, Math.sqrt(1 - Math.pow(0.5, 2)),  circle]);
+var g1 = board.create('glider', [0.5, Math.sqrt(1 - Math.pow(0.5, 2)),  circle], {name: 'Drag this point'});
 
 var l1 = board.create('line', [p1, g1], {straightFirst:false, straightLast:false});
 
 
 
 // var thetaDisplay = Math.round(theta/Math.PI * 100) / 100 + ' PI';
-var p2 = board.create('point', [0, 0], {name: 'theta'});
+var p2 = board.create('point', [0, 0], {name: 'θ'});
 p2.setProperty({fixed:true});
 
 
@@ -79,8 +80,11 @@ var lcurveyaxis = board.create('line', [[thetaOffSet(0), -1.2], [thetaOffSet(0),
 
 var pcurvexaxis1n = board.create('point', [thetaOffSet(0), -1], {name: '-1'});
 var pcurvexaxis1p = board.create('point', [thetaOffSet(0), 1], {name: '1'});
-var pcurveyaxis1n = board.create('point', [thetaOffSet(Math.PI), 0], {name: 'PI'});
-var pcurveyaxis1n = board.create('point', [thetaOffSet(2*Math.PI), 0], {name: '2PI'});
+var pcurveyaxis1n = board.create('point', [thetaOffSet(Math.PI), 0], {name: 'π'});
+var pcurveyaxis1n = board.create('point', [thetaOffSet(2*Math.PI), 0], {name: '2π'});
+
+
+var pcurveyaxis1n = board.create('point', [thetaOffSet(2*Math.PI + 0.2), 0], {name: 'θ'});
 
 
 
