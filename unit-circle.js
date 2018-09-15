@@ -27,15 +27,18 @@ var div = Numbas.extensions.jsxgraph.makeBoard('1080px','300px',
 var board = div.board;
 
 // LEFT CHART
-var p1 = board.create('point', [0, 0], {name: ''});
-p1.setProperty({fixed:true});
-var circle = board.create('circle', [p1, 1]); // [0,0]
+var pointCircle = board.create('point', [0, 0], {name: ''});
+pointCircle.setProperty({fixed:true});
+var circle = board.create('circle', [pointCircle, 1]); // [0,0]
 var g1 = board.create('glider', [0.5, Math.sqrt(1 - Math.pow(0.5, 2)),  circle], {name: 'Drag this point'});
 
-var l1 = board.create('line', [p1, g1], {straightFirst:false, straightLast:false});
+var lineRadius = board.create('line', [pointCircle, g1], {straightFirst:false, straightLast:false});
+
+
+
 var arcPoint1 = board.create('point', [0.75, 0], arcPointStyle);
 var arcPoint2 = board.create('point', [function () {return 0.75*g1.X()}, function () {return 0.75*g1.Y()}], arcPointStyle);
-board.create('arc', [p1, arcPoint1, arcPoint2], {strokeColor: '#b2b2b2'});
+board.create('arc', [pointCircle, arcPoint1, arcPoint2], {strokeColor: '#b2b2b2'});
 
 
 var thetaDisplay = function () { return 'θ=' + Math.round(thetaFunc()/Math.PI * 100) / 100 + 'π'};
@@ -68,11 +71,11 @@ var graph = board.create('curve',
 var curvePoint = board.create('point', [function(){return thetaOffSet(thetaFunc())}, function(){return func(thetaFunc())}], {name: ''});
 var p4 = board.create('point', [function(){return thetaOffSet(thetaFunc())}, 0], {name: ''});
 
-var l2 = board.create('line', [curvePoint, p4], {straightFirst:false, straightLast:false});
+var lineVerticalCurve = board.create('line', [curvePoint, p4], {straightFirst:false, straightLast:false});
 
 
 // draw cross-graph dotted lines (only for sine)
-var l3 = board.create('line', [g1, curvePoint], {straightFirst:false, straightLast:false, dash:2});
+var crossGraphLine = board.create('line', [g1, curvePoint], {straightFirst:false, straightLast:false, dash:2});
 
 // draw axes
 var lCircleXAxis = board.create('line', [[-1.2, 0], [1.2, 0]], axisStyle);
