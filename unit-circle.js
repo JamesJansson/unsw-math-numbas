@@ -45,13 +45,35 @@ var thetaDisplay = function () { return 'θ=' + Math.round(thetaFunc()/Math.PI *
 var p3 = board.create('point', [0, 0], {name: thetaDisplay, fixed:true, label:{offset: [20, 10]}});
 
 var lineVerticalCircle = board.create('line', [g1, [function(){return g1.X()}, 0]], {straightFirst:false, straightLast:false});
-var yDisplay = function () { return 'y=' + Math.round(g1.Y()* 100) / 100};
-var p3 = board.create('point', [function(){return g1.X()}, function(){return g1.Y()/2}], 
-    {name: yDisplay, fixed:true, size:0, strokeWidth:0, strokeColor: '#0000FF', fillColor: '#0000FF', label:{offset: [5, -10]}});
+var lineHorizontalCircle = board.create('line', [[0,0], [function(){return g1.X()}, 0]], {straightFirst:false, straightLast:false});
 
+if (functionType === 'sin' || functionType === 'tan') {
+  var yDisplay = function () { return 'y=' + Math.round(g1.Y()* 100) / 100};
+  var pYLabel = board.create('point', [function(){return g1.X()}, function(){return g1.Y()/2}], 
+      {name: yDisplay, fixed:true, size:0, strokeWidth:0, strokeColor: '#0000FF', fillColor: '#0000FF', label:{offset: [5, -10]}});
+}
+if (functionType === 'cos' || functionType === 'tan') {
+  var xDisplay = function () { return 'x=' + Math.round(g1.X()* 100) / 100};
+  var pXLabel = board.create('point', [function(){return g1.X()/2}, 0], 
+      {name: xDisplay, fixed:true, size:0, strokeWidth:0, strokeColor: '#0000FF', fillColor: '#0000FF', label:{offset: [-10, -15]}});
+}
 
 // RIGHT CHART
-var func = function(t){ return Math.sin(t);}
+var func;
+if (functionType === 'sin') {
+  func = function(t){ return Math.sin(t);};
+  lineVerticalCircle.setProperty({strokeColor: '#BB0000'});
+  // lineRadius.setProperty({strokeColor: '#BB0000'});
+}
+if (functionType === 'cos') {
+  func = function(t){ return Math.cos(t);};
+  lineHorizontalCircle.setProperty({strokeColor: '#BB0000'});
+  // lineRadius.setProperty({strokeColor: '#BB0000'});
+}
+if (functionType === 'tan') {
+  func = function(t){ return Math.tan(t);};
+}
+
 
 function thetaFunc () {
   var theta = Math.acos(g1.X());
@@ -79,7 +101,9 @@ var lineVerticalCurve = board.create('line', [curvePoint, p4], {straightFirst:fa
 
 
 // draw cross-graph dotted lines (only for sine)
-var crossGraphLine = board.create('line', [g1, curvePoint], {straightFirst:false, straightLast:false, dash:2});
+if (functionType === 'sin') {
+  var crossGraphLine = board.create('line', [g1, curvePoint], {straightFirst:false, straightLast:false, dash:2});
+}
 
 // draw axes
 var lCircleXAxis = board.create('line', [[-1.2, 0], [1.2, 0]], axisStyle);
