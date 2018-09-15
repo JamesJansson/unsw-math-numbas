@@ -67,24 +67,40 @@ var l2 = board.create('line', [p3, p4], {straightFirst:false, straightLast:false
 var l3 = board.create('line', [g1, p3], {straightFirst:false, straightLast:false, dash:2});
 
 // draw axes
-var lcirclexaxis = board.create('line', [[-1.2, 0], [1.2, 0]], {straightFirst:false, straightLast:false, fixed:true});
-var lcircleyaxis = board.create('line', [[0, -1.2], [0, 1.2]], {straightFirst:false, straightLast:false, fixed:true});
+var axisStyle = {straightFirst:false, straightLast:false, fixed:true};
+var axisPointStyle = {size:0, strokeWidth:3, strokeColor: '#0000FF', fillColor: '#0000FF', fixed:true};
+var lCircleXAxis = board.create('line', [[-1.2, 0], [1.2, 0]], axisStyle);
+var lCircleYAxis = board.create('line', [[0, -1.2], [0, 1.2]], axisStyle);
 
-var pcirclexaxis1n = board.create('point', [0, -1], {name: '-1'});
-var pcirclexaxis1p = board.create('point', [0, 1], {name: '1'});
-var pcircleyaxis1n = board.create('point', [-1, 0], {name: '-1'});
-var pcircleyaxis1p = board.create('point', [1, 0], {name: '1'});
+var pCircleXAxisNeg = board.create('point', [0, -1], axisPointStyle);
+pCircleXAxisNeg.setProperty({name:'-1'});
+var pCircleXAxisPos = board.create('point', [0, 1], axisPointStyle);
+pCircleXAxisPos.setProperty({name:'1'});
+var pCircleYAxisNeg = board.create('point', [-1, 0], axisPointStyle);
+pCircleYAxisNeg.setProperty({name:'-1'});
+var pCircleYAxisPos = board.create('point', [1, 0], axisPointStyle);
+pCircleYAxisPos.setProperty({name:'1'});
 
-var lcurvexaxis = board.create('line', [[thetaOffSet(-0.2), 0], [thetaOffSet(2*Math.PI +1.2), 0]], {straightFirst:false, straightLast:false, fixed:true});
-var lcurveyaxis = board.create('line', [[thetaOffSet(0), -1.2], [thetaOffSet(0), 1.2]], {straightFirst:false, straightLast:false, fixed:true});
-
-var pcurvexaxis1n = board.create('point', [thetaOffSet(0), -1], {name: '-1'});
-var pcurvexaxis1p = board.create('point', [thetaOffSet(0), 1], {name: '1'});
-var pcurveyaxis1n = board.create('point', [thetaOffSet(Math.PI), 0], {name: 'π'});
-var pcurveyaxis1n = board.create('point', [thetaOffSet(2*Math.PI), 0], {name: '2π'});
+var lCurveXAxis = board.create('line', [[thetaOffSet(-0.2), 0], [thetaOffSet(2*Math.PI +1.2), 0]], axisStyle);
+var lCurveYAxis = board.create('line', [[thetaOffSet(0), -1.2], [thetaOffSet(0), 1.2]], axisStyle);
 
 
-var pcurveyaxis1n = board.create('point', [thetaOffSet(2*Math.PI + 0.2), 0], {name: 'θ'});
+
+var pCurveYAxisNeg = board.create('point', [thetaOffSet(0), -1], axisPointStyle);
+pCurveYAxisNeg.setProperty({name:'-1'});
+var pCurveYAxisPos = board.create('point', [thetaOffSet(0), 1], axisPointStyle);
+pCurveYAxisPos.setProperty({name:'1'});
+var pCurveXAxis1Pi = board.create('point', [thetaOffSet(Math.PI/2), 0], axisPointStyle);
+pCurveXAxis1Pi.setProperty({name:'π/2'});
+var pCurveXAxis1Pi = board.create('point', [thetaOffSet(Math.PI), 0], axisPointStyle);
+pCurveXAxis1Pi.setProperty({name:'π'});
+var pCurveXAxis2Pi = board.create('point', [thetaOffSet(3*Math.PI/2), 0], axisPointStyle);
+pCurveXAxis2Pi.setProperty({name:'3π/2'});
+var pCurveXAxis2Pi = board.create('point', [thetaOffSet(2*Math.PI), 0], axisPointStyle);
+pCurveXAxis2Pi.setProperty({name:'2π'});
+
+
+var pCurveYAxis1n = board.create('point', [thetaOffSet(2*Math.PI + 0.2), 0], {name: 'θ'});
 
 
 
