@@ -42,8 +42,12 @@ board.create('arc', [pointCircleCentre, arcPoint1, arcPoint2], {strokeColor: '#b
 
 
 var thetaDisplay = function () { return 'θ=' + Math.round(thetaFunc()/Math.PI * 100) / 100 + 'π'};
-var p3 = board.create('point', [0, 0], {name: thetaDisplay, fixed:true});
-p3.setProperty({fixed:true});
+var p3 = board.create('point', [0, 0], {name: thetaDisplay, fixed:true, label:{offset: [20, 10]}});
+
+var lineVerticalCircle = board.create('line', [g1, [function(){return g1.X()}, 0]], {straightFirst:false, straightLast:false});
+var yDisplay = function () { return 'y=' + Math.round(g1.Y()* 100) / 100};
+var p3 = board.create('point', [function(){return g1.X()}, function(){return g1.Y()/2}], 
+    {name: yDisplay, fixed:true, size:0, strokeWidth:0, strokeColor: '#0000FF', fillColor: '#0000FF', label:{offset: [5, -10]}});
 
 
 // RIGHT CHART
