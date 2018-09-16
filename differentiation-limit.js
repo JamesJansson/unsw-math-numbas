@@ -28,13 +28,12 @@ y_0 = equation(x_0);
 // We will make the chart bounds slightly larger, such that the interesting chart elements take up roughly 70% of the screen
 var bufferProp = 0.1;
 var xDisplayRange = Math.max(x_1, 0) - Math.min(0, x_0);
-xBoundMin = Math.min(-xDisplayRange*bufferProp, x_0);
-xBoundMax = Math.max(xDisplayRange*bufferProp, x_1);
+xBoundMin = Math.min(-xDisplayRange*bufferProp, x_0 - xDisplayRange*bufferProp);
+xBoundMax = Math.max(xDisplayRange*bufferProp, x_1 + xDisplayRange*bufferProp);
 
 var yDisplayRange = Math.max(y_1, 0) - Math.min(0, y_0);
-yBoundMin = Math.min(-yDisplayRange*bufferProp, y_0);
-yBoundMax = Math.max(yDisplayRange*bufferProp, y_1);
-
+yBoundMin = Math.min(-yDisplayRange*bufferProp, y_0 - yDisplayRange*bufferProp);
+yBoundMax = Math.max(yDisplayRange*bufferProp, y_1 + yDisplayRange*bufferProp);
 
 var div = Numbas.extensions.jsxgraph.makeBoard('600px','600px', 
   {
@@ -50,7 +49,7 @@ var board = div.board;
 var graph = board.create('curve',
     [function(x){ return x},
     equation,
-    -5, 5]
+    -xBoundMin, xBoundMax]
 );
 
 
