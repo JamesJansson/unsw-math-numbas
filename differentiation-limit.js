@@ -26,7 +26,7 @@ y_0 = equation(x_0);
 
 // x_chart_min and x_chart_max are the min and max positions of the interesting elements of the chart. 
 // We will make the chart bounds slightly larger, such that the interesting chart elements take up roughly 70% of the screen
-var bufferProp = 0.1;
+var bufferProp = 0.4;
 var xDisplayRange = Math.max(x_1, 0) - Math.min(0, x_0);
 xBoundMin = Math.min(-xDisplayRange*bufferProp, x_0 - xDisplayRange*bufferProp);
 xBoundMax = Math.max(xDisplayRange*bufferProp, x_1 + xDisplayRange*bufferProp);
@@ -49,10 +49,17 @@ var board = div.board;
 var graph = board.create('curve',
     [function(x){ return x},
     equation,
-    -xBoundMin, xBoundMax]
+    xBoundMin, xBoundMax]
 );
 
 
+var p0 = board.create('point', [x_0, y_0], {fixed:true});
+var p1 = board.create('point', [x_1, y_1], {fixed:true});
+
+var lineVertical = board.create('line', [p1, [function(){return p1.X()}, function(){return p0.Y()}]], {strokeWidth: 4, straightFirst:false, straightLast:false});
+var lineHorizontal = board.create('line', [p0, [function(){return p1.X()}, function(){return p0.Y()}]], {strokeWidth: 4, straightFirst:false, straightLast:false});
+var lineDiagonal = board.create('line', [p0, p1], {strokeWidth: 4, straightFirst:false, straightLast:false});
+var lineTangent = board.create('line', [p0, p1], {strokeWidth: 1});
 
 return div;
 
