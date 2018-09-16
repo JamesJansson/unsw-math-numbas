@@ -21,9 +21,12 @@ function equation(x) {
   return Numbas.jme.evaluate(compiledExpression, nscope).value;
 }
 
+y_1 = equation(x_1);
+y_0 = equation(x_0);
+
 var div = Numbas.extensions.jsxgraph.makeBoard('600px','600px', 
   {
-    boundingBox: [-5, 10, 5, -5], // xmin, ymax, xmax, ymin
+    boundingBox: [-1, 25, 3, -1], // xmin, ymax, xmax, ymin
     axis: true,
     showNavigation: true,
     grid: true
