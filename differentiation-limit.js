@@ -1,3 +1,5 @@
+// Need condition: turning point < x_0 to ensure not ridiculous flicking around
+
 
 var compiledExpression = Numbas.jme.compile(equation_string, scope);
 if(compiledExpression === null) {
@@ -31,6 +33,7 @@ var xDisplayRange = Math.max(x_1, 0) - Math.min(0, x_0);
 xBoundMin = Math.min(-xDisplayRange*bufferProp, x_0 - xDisplayRange*bufferProp);
 xBoundMax = Math.max(xDisplayRange*bufferProp, x_1 + xDisplayRange*bufferProp);
 
+// This needs a max for the _1 AND _2 points
 var yDisplayRange = Math.max(y_1, 0) - Math.min(0, y_0);
 yBoundMin = Math.min(-yDisplayRange*bufferProp, y_0 - yDisplayRange*bufferProp);
 yBoundMax = Math.max(yDisplayRange*bufferProp, y_1 + yDisplayRange*bufferProp);
