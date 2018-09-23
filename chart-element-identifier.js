@@ -136,6 +136,8 @@ function newtonsMethod(inputFunction, inputFunctionDerivative, estimate, options
 // newtonsMethod(y, dy, 2.5, {showOutput: true})
 
 function midpointOptimisation(equation, x0, x1) {
+  // The first step is to find a positive and a negative between the two points
+  // Note that x0 and x1 are NOT inclusive as a result of this. 
   var count = 0;
   // find a negative
   var negativeValue;
@@ -183,11 +185,11 @@ var leftRoot, rightRoot;
 // Optimise to find x-intercepts
 if (expected_x_intercepts > 0) {
   // start a range
-  if (expected_x_intercepts === 1) {
+  if (expected_x_intercepts === 1) { // This method is necessary for cubics
     // Try from both sides, hopefully one works
     var testRoot1 = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
     var testRoot2 = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
-    root[0] = equation(testRoot1) < equation(testRoot2) ? testRoot1 : testRoot2;
+    root[0] = equation(testRoot1) < equation(testRoot2) ? testRoot1 : testRoot2; // choose the smallest of the estimates
     leftRoot = root[0];
     rightRoot = root[0];
   } else if (expected_x_intercepts === 2) {
@@ -196,7 +198,7 @@ if (expected_x_intercepts > 0) {
     root[1] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
     leftRoot = root[0];
     rightRoot = root[1];
-  } else if (expected_x_intercepts === 3) {
+  } else if (expected_x_intercepts === 3) { // This method is necessary for cubics
     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
     root[2] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
     root[1] = midpointOptimisation(equation, root[0], root[2]);
