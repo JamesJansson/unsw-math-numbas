@@ -17,7 +17,8 @@
 'y_s2,'+
 'x_s3,'+
 'y_s3,'+
-'labelNames'+
+'labelNames,'+
+'answerOutputs'+
 ')'
 
 console.log(labelNames);
@@ -201,7 +202,7 @@ var root = findRoots(equation,
     x_chart_min - 3*(x_chart_max - x_chart_min), 
     x_chart_max + 3*(x_chart_max - x_chart_min));
 
-if (expected_x_intercepts !== root.length) {
+if (expectedXIntercepts  !== root.length) {
   alert('An incorrect number of roots were found. The answers may not work. Please contact your course cooridnator.');
 }
 
@@ -212,22 +213,22 @@ var rightRoot = Math.max.apply(null, root);
 // var root=[];
 // var leftRoot, rightRoot;
 // // Optimise to find x-intercepts
-// if (expected_x_intercepts > 0) {
+// if (expectedXIntercepts  > 0) {
 //   // start a range
-//   if (expected_x_intercepts === 1) { // This method is necessary for cubics
+//   if (expectedXIntercepts  === 1) { // This method is necessary for cubics
 //     // Try from both sides, hopefully one works
 //     var testRoot1 = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
 //     var testRoot2 = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
 //     root[0] = equation(testRoot1) < equation(testRoot2) ? testRoot1 : testRoot2; // choose the smallest of the estimates
 //     leftRoot = root[0];
 //     rightRoot = root[0];
-//   } else if (expected_x_intercepts === 2) {
+//   } else if (expectedXIntercepts  === 2) {
 //     // Start to the left of the range, hope converges to left point (should for quadratics and quartics)
 //     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
 //     root[1] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
 //     leftRoot = root[0];
 //     rightRoot = root[1];
-//   } else if (expected_x_intercepts === 3) { // This method is necessary for cubics
+//   } else if (expectedXIntercepts  === 3) { // This method is necessary for cubics
 //     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
 //     root[2] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
 //     root[1] = midpointOptimisation(equation, root[0], root[2]);
