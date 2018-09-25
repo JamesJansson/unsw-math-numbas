@@ -93,12 +93,6 @@ function secondDerivative(x) {
 }
 
 
-
-/**
- * 
- */
-
-
 function midpointOptimisation(equation, x0, x1) {
   // The first step is to find a positive and a negative between the two points
   // Note that x0 and x1 are NOT inclusive as a result of this. 
@@ -167,34 +161,6 @@ if (expectedXIntercepts  !== root.length) {
 
 var leftRoot = Math.min.apply(null, root);
 var rightRoot = Math.max.apply(null, root);
-
-// var root=[];
-// var leftRoot, rightRoot;
-// // Optimise to find x-intercepts
-// if (expectedXIntercepts  > 0) {
-//   // start a range
-//   if (expectedXIntercepts  === 1) { // This method is necessary for cubics
-//     // Try from both sides, hopefully one works
-//     var testRoot1 = newtonsMethod(equation, derivative, x_chart_max + (x_chart_max - x_chart_min));
-//     var testRoot2 = newtonsMethod(equation, derivative, x_chart_min - (x_chart_max - x_chart_min));
-//     root[0] = equation(testRoot1) < equation(testRoot2) ? testRoot1 : testRoot2; // choose the smallest of the estimates
-//     leftRoot = root[0];
-//     rightRoot = root[0];
-//   } else if (expectedXIntercepts  === 2) {
-//     // Start to the left of the range, hope converges to left point (should for quadratics and quartics)
-//     root[0] = newtonsMethod(equation, derivative, x_chart_max + (x_chart_max - x_chart_min));
-//     root[1] = newtonsMethod(equation, derivative, x_chart_min - (x_chart_max - x_chart_min));
-//     leftRoot = root[0];
-//     rightRoot = root[1];
-//   } else if (expectedXIntercepts  === 3) { // This method is necessary for cubics
-//     root[0] = newtonsMethod(equation, derivative, x_chart_max + (x_chart_max - x_chart_min));
-//     root[2] = newtonsMethod(equation, derivative, x_chart_min - (x_chart_max - x_chart_min));
-//     root[1] = midpointOptimisation(equation, root[0], root[2]);
-//     leftRoot = root[0];
-//     rightRoot = root[2];
-//   }
-// }
-
 
 // x_chart_min and x_chart_max are the min and max positions of the interesting elements of the chart. 
 // We will make the chart bounds slightly larger, such that the interesting chart elements take up roughly 70% of the screen
@@ -311,8 +277,7 @@ var x_s_set = [false, false, false];
 var inflectionPointCount = 0;
 var p1, sCount, sFound, sVal;
 answerOutputs.forEach(function (answerNumber) {
-  // [0,1,2,3,4]
-  // ['X-intercept', 'Y-intercept', 'Local minimum', 'Local maximum', 'Inflection point']
+  // [0,1,2,3,4] -> ['X-intercept', 'Y-intercept', 'Local minimum', 'Local maximum', 'Inflection point']
   // X-intercept
   if (answerNumber === 0) {
     p1 = board.create('point', [root[rootCount], equation(root[rootCount])], labelFormat);
@@ -359,3 +324,13 @@ answerOutputs.forEach(function (answerNumber) {
 });
 
 return div;
+
+// Answer matrix
+// matrix(
+//   [if(answerOutputs[0]=0, 1, 0), if(answerOutputs[0]=1, 1, 0), if(answerOutputs[0]=2, 1, 0), if(answerOutputs[0]=3, 1, 0), if(answerOutputs[0]=4, 1, 0)],
+//   [if(answerOutputs[1]=0, 1, 0), if(answerOutputs[1]=1, 1, 0), if(answerOutputs[1]=2, 1, 0), if(answerOutputs[1]=3, 1, 0), if(answerOutputs[1]=4, 1, 0)],
+//   [if(answerOutputs[2]=0, 1, 0), if(answerOutputs[2]=1, 1, 0), if(answerOutputs[2]=2, 1, 0), if(answerOutputs[2]=3, 1, 0), if(answerOutputs[2]=4, 1, 0)],
+//   [if(answerOutputs[3]=0, 1, 0), if(answerOutputs[3]=1, 1, 0), if(answerOutputs[3]=2, 1, 0), if(answerOutputs[3]=3, 1, 0), if(answerOutputs[3]=4, 1, 0)],
+//   [if(answerOutputs[4]=0, 1, 0), if(answerOutputs[4]=1, 1, 0), if(answerOutputs[4]=2, 1, 0), if(answerOutputs[4]=3, 1, 0), if(answerOutputs[4]=4, 1, 0)],
+//   [if(answerOutputs[5]=0, 1, 0), if(answerOutputs[5]=1, 1, 0), if(answerOutputs[5]=2, 1, 0), if(answerOutputs[5]=3, 1, 0), if(answerOutputs[5]=4, 1, 0)]
+// )
