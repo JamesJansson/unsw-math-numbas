@@ -1,7 +1,8 @@
 // Required vars
 'chart_elements('+
-'equation_string,'+
-'differential_string,'+
+'equationString,'+
+'derivativeString,'+
+'secondDerivativeString,'+
 'c_0,'+
 'c_1,'+
 'c_2,'+
@@ -9,21 +10,22 @@
 'c_4,'+
 'x_chart_min,'+
 'x_chart_max,'+
-'expected_x_intercepts,'+
+'expectedXIntercepts,'+
 'x_s1,'+
 'y_s1,'+
 'x_s2,'+
 'y_s2,'+
 'x_s3,'+
-'y_s3'+
+'y_s3,'+
+'labelNames'+
 ')'
 
 console.log(labelNames);
 
 
 // Get equation, interpret
-// var equation_string = question.parts[0].gaps[0].display.studentAnswer();
-var compiledExpression = Numbas.jme.compile(equation_string, scope);
+// var equationString = question.parts[0].gaps[0].display.studentAnswer();
+var compiledExpression = Numbas.jme.compile(equationString, scope);
 if(compiledExpression === null) {
   throw(new Error('No equation'));
 }
@@ -45,8 +47,8 @@ function equation(x) {
   return Numbas.jme.evaluate(compiledExpression, nscope).value;
 }
 
-var compiledExpressionDifferential = Numbas.jme.compile(differential_string, scope);
-if(compiledExpressionDifferential === null) {
+var compiledDerivativeExpression = Numbas.jme.compile(derivativeString, scope);
+if(compiledDerivativeExpression === null) {
   throw(new Error('No equation'));
 }
 function differential(x) {
@@ -64,7 +66,7 @@ function differential(x) {
         }
       }
   ]);
-  return Numbas.jme.evaluate(compiledExpressionDifferential, nscope).value;
+  return Numbas.jme.evaluate(compiledDerivativeExpression, nscope).value;
 }
 
 /**
