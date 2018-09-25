@@ -10,7 +10,6 @@
 'c_4,'+
 'x_chart_min,'+
 'x_chart_max,'+
-'expectedXIntercepts,'+
 'x_s1,'+
 'y_s1,'+
 'x_s2,'+
@@ -153,10 +152,6 @@ function findRoots(equation, leftMostPoint, rightMostPoint) {
 var root = findRoots(equation, 
     x_chart_min - 3*(x_chart_max - x_chart_min), 
     x_chart_max + 3*(x_chart_max - x_chart_min));
-
-if (expectedXIntercepts  !== root.length) {
-  alert('An incorrect number of roots were found. The answers may not work. Please contact your course cooridnator.');
-}
 
 
 var leftRoot = Math.min.apply(null, root);
