@@ -240,17 +240,17 @@ var rightRoot = Math.max.apply(null, root);
 var bufferProp = 0.1;
 console.log('left', leftRoot, ' ', x_chart_min)
 console.log('right', rightRoot, ' ', x_chart_max)
-xBoundMin = Math.min(0, leftRoot, x_chart_min);
-xBoundMax = Math.max(0, rightRoot, x_chart_max);
-var xBuffer = bufferProp * (x_chart_max - x_chart_min);
-xBoundMin = xBoundMin - xBuffer;
-xBoundMax = xBoundMax + xBuffer;
+var xInterestingMin = Math.min(0, leftRoot, x_chart_min);
+var xInterestingMax = Math.max(0, rightRoot, x_chart_max);
+var xBuffer = bufferProp * (xInterestingMax - xInterestingMin);
+xBoundMin = xInterestingMin - xBuffer;
+xBoundMax = xInterestingMax + xBuffer;
 
 // Determine the rough min and max range, given the domain of the question
-var length = x_chart_max - x_chart_min;
-var xTestStepSize = length / 20;
+var length = xInterestingMax - xInterestingMin;
+var xTestStepSize = length / 200;
 var fMin, fMax;
-for (var xTest = x_chart_min; xTest <= x_chart_max; xTest += xTestStepSize) {
+for (var xTest = xInterestingMin; xTest <= xInterestingMax; xTest += xTestStepSize) {
   var fVal = equation(xTest);
   if (fMax === undefined) {
     fMax = fVal;
@@ -346,28 +346,31 @@ var curveline = board.create('functiongraph',
 
 // y intercept, turning points, infection points, x intercepts
 // var g2 = board.create('glider', [0, equation(0), curveline]);
+var labelFormat = {fixed:true, face:'o', size:1, label:{fontSize:20, offset: [7, 10]}};
+// Y-Intercept
+p1 = board.create('point',[0,equation(0)], labelFormat);
+p1.setProperty({name: 'A'});
 
-p1 = board.create('point',[0,equation(0)], {name:'A', face:'o', size:1});
-p1.setProperty({fixed:true});
-p2 = board.create('point',[x_s1,equation(x_s1)], {name:'B', face:'o', size:1});
-p2.setProperty({fixed:true});
-p2 = board.create('point',[x_s2,equation(x_s2)], {name:'C', face:'o', size:1});
-p2.setProperty({fixed:true});
-p2 = board.create('point',[x_s3,equation(x_s3)], {name:'D', face:'o', size:1});
-p2.setProperty({fixed:true});
-p2 = board.create('point',[x_s3,equation(x_s3)], {name:'D', face:'o', size:1});
-p2.setProperty({fixed:true});
-if (expected_x_intercepts > 0) {
-  p2 = board.create('point',[root[0],equation(root[0])], {name:'D', face:'o', size:1});
-  p2.setProperty({fixed:true});
+// Turning points
+p2 = board.create('point',[x_s1,equation(x_s1)], labelFormat);
+p2.setProperty({name: 'A'});
+p2 = board.create('point',[x_s2,equation(x_s2)], labelFormat);
+p2.setProperty({name: 'B'});
+p2 = board.create('point',[x_s3,equation(x_s3)], labelFormat);
+p2.setProperty({name: 'C'});
+
+// Plot roots
+if (root[0] !== undefined) {
+  p2 = board.create('point',[root[0], equation(root[0])], labelFormat);
+  p2.setProperty({name: 'D'});
 }
-if (expected_x_intercepts > 1) {
-  p2 = board.create('point',[root[1],equation(root[1])], {name:'D', face:'o', size:1});
-  p2.setProperty({fixed:true});
+if (root[1] !== undefined) {
+  p2 = board.create('point',[root[1], equation(root[1])], labelFormat);
+  p2.setProperty({name: 'E'});
 }
-if (expected_x_intercepts > 2) {
-  p2 = board.create('point',[root[2],equation(root[2])], {name:'D', face:'o', size:1});
-  p2.setProperty({fixed:true});
+if (root[2] !== undefined) {
+  p2 = board.create('point',[root[2], equation(root[2])], labelFormat);
+  p2.setProperty({name: 'F'});
 }
 
 // ['x-intercept', 'y-intercept', 'inflection point', 'local maximum', 'local minimum']
