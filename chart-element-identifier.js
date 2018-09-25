@@ -18,6 +18,9 @@
 'y_s3'+
 ')'
 
+console.log(labelNames);
+
+
 // Get equation, interpret
 // var equation_string = question.parts[0].gaps[0].display.studentAnswer();
 var compiledExpression = Numbas.jme.compile(equation_string, scope);
@@ -180,37 +183,63 @@ function midpointOptimisation(equation, x0, x1) {
 // midpointOptimisation(y, 2, 5);
 // midpointOptimisation(y, 10, 2);
 
-var root=[];
-var leftRoot, rightRoot;
-// Optimise to find x-intercepts
-if (expected_x_intercepts > 0) {
-  // start a range
-  if (expected_x_intercepts === 1) { // This method is necessary for cubics
-    // Try from both sides, hopefully one works
-    var testRoot1 = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
-    var testRoot2 = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
-    root[0] = equation(testRoot1) < equation(testRoot2) ? testRoot1 : testRoot2; // choose the smallest of the estimates
-    leftRoot = root[0];
-    rightRoot = root[0];
-  } else if (expected_x_intercepts === 2) {
-    // Start to the left of the range, hope converges to left point (should for quadratics and quartics)
-    root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
-    root[1] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
-    leftRoot = root[0];
-    rightRoot = root[1];
-  } else if (expected_x_intercepts === 3) { // This method is necessary for cubics
-    root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
-    root[2] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
-    root[1] = midpointOptimisation(equation, root[0], root[2]);
-    leftRoot = root[0];
-    rightRoot = root[2];
+
+function findRoots(equation, leftMostPoint, rightMostPoint) {
+  var increment = (rightMostPoint- leftMostPoint)/200;
+  var root=[];
+  for (var xStep = leftMostPoint; xStep<rightMostPoint; xStep=xStep+increment) {
+    // check if points are on either side of the x-axis (y<0 and y>0)
+    if (equation(xStep) * equation(xStep + increment) < 0) {
+      root.push(midpointOptimisation(equation, xStep, xStep+increment))
+    }
   }
+  return root;
 }
+var root = findRoots(equation, 
+    x_chart_min - 3*(x_chart_max - x_chart_min), 
+    x_chart_max + 3*(x_chart_max - x_chart_min));
+
+if (expected_x_intercepts !== root.length) {
+  alert('An incorrect number of roots were found. The answers may not work. Please contact your course cooridnator.');
+}
+
+
+var leftRoot = Math.min.apply(null, root);
+var rightRoot = Math.max.apply(null, root);
+
+// var root=[];
+// var leftRoot, rightRoot;
+// // Optimise to find x-intercepts
+// if (expected_x_intercepts > 0) {
+//   // start a range
+//   if (expected_x_intercepts === 1) { // This method is necessary for cubics
+//     // Try from both sides, hopefully one works
+//     var testRoot1 = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
+//     var testRoot2 = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
+//     root[0] = equation(testRoot1) < equation(testRoot2) ? testRoot1 : testRoot2; // choose the smallest of the estimates
+//     leftRoot = root[0];
+//     rightRoot = root[0];
+//   } else if (expected_x_intercepts === 2) {
+//     // Start to the left of the range, hope converges to left point (should for quadratics and quartics)
+//     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
+//     root[1] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
+//     leftRoot = root[0];
+//     rightRoot = root[1];
+//   } else if (expected_x_intercepts === 3) { // This method is necessary for cubics
+//     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
+//     root[2] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
+//     root[1] = midpointOptimisation(equation, root[0], root[2]);
+//     leftRoot = root[0];
+//     rightRoot = root[2];
+//   }
+// }
 
 
 // x_chart_min and x_chart_max are the min and max positions of the interesting elements of the chart. 
 // We will make the chart bounds slightly larger, such that the interesting chart elements take up roughly 70% of the screen
 var bufferProp = 0.1;
+console.log('left', leftRoot, ' ', x_chart_min)
+console.log('right', rightRoot, ' ', x_chart_max)
 xBoundMin = Math.min(0, leftRoot, x_chart_min);
 xBoundMax = Math.max(0, rightRoot, x_chart_max);
 var xBuffer = bufferProp * (x_chart_max - x_chart_min);
@@ -246,7 +275,7 @@ var div = Numbas.extensions.jsxgraph.makeBoard('400px','400px',
   {
     boundingBox: [xBoundMin, yBoundMax, xBoundMax, yBoundMin], // xmin, ymax, xmax, ymin
     axis: false,
-    showNavigation: false,
+    showNavigation: true,
     grid: false
   });
 
