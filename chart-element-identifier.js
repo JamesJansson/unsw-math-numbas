@@ -52,7 +52,7 @@ var compiledDerivativeExpression = Numbas.jme.compile(derivativeString, scope);
 if(compiledDerivativeExpression === null) {
   throw(new Error('No equation'));
 }
-function differential(x) {
+function derivative(x) {
   // Create a JME scope with the variable x set to the given value.
   var nscope = new Numbas.jme.Scope([
       Numbas.jme.builtinScope,
@@ -217,20 +217,20 @@ var rightRoot = Math.max.apply(null, root);
 //   // start a range
 //   if (expectedXIntercepts  === 1) { // This method is necessary for cubics
 //     // Try from both sides, hopefully one works
-//     var testRoot1 = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
-//     var testRoot2 = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
+//     var testRoot1 = newtonsMethod(equation, derivative, x_chart_max + (x_chart_max - x_chart_min));
+//     var testRoot2 = newtonsMethod(equation, derivative, x_chart_min - (x_chart_max - x_chart_min));
 //     root[0] = equation(testRoot1) < equation(testRoot2) ? testRoot1 : testRoot2; // choose the smallest of the estimates
 //     leftRoot = root[0];
 //     rightRoot = root[0];
 //   } else if (expectedXIntercepts  === 2) {
 //     // Start to the left of the range, hope converges to left point (should for quadratics and quartics)
-//     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
-//     root[1] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
+//     root[0] = newtonsMethod(equation, derivative, x_chart_max + (x_chart_max - x_chart_min));
+//     root[1] = newtonsMethod(equation, derivative, x_chart_min - (x_chart_max - x_chart_min));
 //     leftRoot = root[0];
 //     rightRoot = root[1];
 //   } else if (expectedXIntercepts  === 3) { // This method is necessary for cubics
-//     root[0] = newtonsMethod(equation, differential, x_chart_max + (x_chart_max - x_chart_min));
-//     root[2] = newtonsMethod(equation, differential, x_chart_min - (x_chart_max - x_chart_min));
+//     root[0] = newtonsMethod(equation, derivative, x_chart_max + (x_chart_max - x_chart_min));
+//     root[2] = newtonsMethod(equation, derivative, x_chart_min - (x_chart_max - x_chart_min));
 //     root[1] = midpointOptimisation(equation, root[0], root[2]);
 //     leftRoot = root[0];
 //     rightRoot = root[2];
