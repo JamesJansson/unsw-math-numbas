@@ -363,21 +363,45 @@ p2 = board.create('point',[x_s3,equation(x_s3)], labelFormat);
 p2.setProperty({name: 'C'});
 
 // Plot roots
-if (root[0] !== undefined) {
-  p2 = board.create('point',[root[0], equation(root[0])], labelFormat);
+root.forEach(function (rootVal) {
+  p2 = board.create('point',[rootVal, equation(rootVal)], labelFormat);
   p2.setProperty({name: 'D'});
-}
-if (root[1] !== undefined) {
-  p2 = board.create('point',[root[1], equation(root[1])], labelFormat);
-  p2.setProperty({name: 'E'});
-}
-if (root[2] !== undefined) {
-  p2 = board.create('point',[root[2], equation(root[2])], labelFormat);
-  p2.setProperty({name: 'F'});
-}
+});
 
-// ['x-intercept', 'y-intercept', 'inflection point', 'local maximum', 'local minimum']
 
-// http://jsxgraph.uni-bayreuth.de/wiki/index.php/Polygon
+var answerCount = 0;
+var rootCount = 0;
+var x_s_arr = [x_s1, x_s2, x_s3];
+var x_s_set = [false, false, false];
+var inflectionPointCount = 0;
+var p1;
+answerOutputs.forEach(function (answerNumber) {
+  // [0,1,2,3,4]
+  // ['X-intercept', 'Y-intercept', 'Local minimum', 'Local maximum', 'Inflection point']
+  // X-intercept
+  if (answerNumber === 0) {
+    p1 = board.create('point', [root[rootCount], equation(root[rootCount])], labelFormat);
+    rootCount++;
+  }
+  if (answerNumber === 1) {
+    p1 = board.create('point', [0, equation(0)], labelFormat);
+  }
+  if (answerNumber === 2) {
+    var minFound = false;
+    var sCount =0;
+    while (!minFound && sCount < x_s_arr.length) {
+      if (!x_s_set[sCount] && x_s_arr[sCount]) {
+        minFound = true;
+        var x_s_val = x_s_arr[sCount];
+        p1 = board.create('point', [x_s_val, equation(x_s_val)], labelFormat);
+      }
+      sCount++;
+    }
+    localMinCount++;
+  }
+
+  p1.setProperty({name: labelNames[answerCount]});
+  answerCount++;
+});
 
 return div;
