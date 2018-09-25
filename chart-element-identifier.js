@@ -374,17 +374,17 @@ var curveline = board.create('functiongraph',
 // y intercept, turning points, infection points, x intercepts
 // var g2 = board.create('glider', [0, equation(0), curveline]);
 var labelFormat = {fixed:true, face:'o', size:1, label:{fontSize:20, offset: [7, 10]}};
-// Y-Intercept
-p1 = board.create('point',[0,equation(0)], labelFormat);
-p1.setProperty({name: 'A'});
+// // Y-Intercept
+// p1 = board.create('point',[0,equation(0)], labelFormat);
+// p1.setProperty({name: 'A'});
 
-// Turning points
-p2 = board.create('point',[x_s1,equation(x_s1)], labelFormat);
-p2.setProperty({name: 'A'});
-p2 = board.create('point',[x_s2,equation(x_s2)], labelFormat);
-p2.setProperty({name: 'B'});
-p2 = board.create('point',[x_s3,equation(x_s3)], labelFormat);
-p2.setProperty({name: 'C'});
+// // Turning points
+// p2 = board.create('point',[x_s1,equation(x_s1)], labelFormat);
+// p2.setProperty({name: 'A'});
+// p2 = board.create('point',[x_s2,equation(x_s2)], labelFormat);
+// p2.setProperty({name: 'B'});
+// p2 = board.create('point',[x_s3,equation(x_s3)], labelFormat);
+// p2.setProperty({name: 'C'});
 
 // Plot roots
 // root.forEach(function (rootVal) {
