@@ -70,6 +70,30 @@ function derivative(x) {
   return Numbas.jme.evaluate(compiledDerivativeExpression, nscope).value;
 }
 
+var compiledSecondDerivativeExpression = Numbas.jme.compile(secondDerivativeString, scope);
+if(compiledSecondDerivativeExpression === null) {
+  throw(new Error('No equation'));
+}
+function secondDerivative(x) {
+  // Create a JME scope with the variable x set to the given value.
+  var nscope = new Numbas.jme.Scope([
+      Numbas.jme.builtinScope,
+      {
+        variables: {
+          x: new Numbas.jme.types.TNum(x),
+          c_4: new Numbas.jme.types.TNum(c_4),
+          c_3: new Numbas.jme.types.TNum(c_3),
+          c_2: new Numbas.jme.types.TNum(c_2),
+          c_1: new Numbas.jme.types.TNum(c_1),
+          c_0: new Numbas.jme.types.TNum(c_0)
+        }
+      }
+  ]);
+  return Numbas.jme.evaluate(compiledSecondDerivativeExpression, nscope).value;
+}
+
+
+
 /**
  * 
  */
@@ -363,10 +387,10 @@ p2 = board.create('point',[x_s3,equation(x_s3)], labelFormat);
 p2.setProperty({name: 'C'});
 
 // Plot roots
-root.forEach(function (rootVal) {
-  p2 = board.create('point',[rootVal, equation(rootVal)], labelFormat);
-  p2.setProperty({name: 'D'});
-});
+// root.forEach(function (rootVal) {
+//   p2 = board.create('point',[rootVal, equation(rootVal)], labelFormat);
+//   p2.setProperty({name: 'D'});
+// });
 
 
 var answerCount = 0;
@@ -374,7 +398,7 @@ var rootCount = 0;
 var x_s_arr = [x_s1, x_s2, x_s3];
 var x_s_set = [false, false, false];
 var inflectionPointCount = 0;
-var p1;
+var p1, sCount, sFound, sVal;
 answerOutputs.forEach(function (answerNumber) {
   // [0,1,2,3,4]
   // ['X-intercept', 'Y-intercept', 'Local minimum', 'Local maximum', 'Inflection point']
@@ -383,22 +407,41 @@ answerOutputs.forEach(function (answerNumber) {
     p1 = board.create('point', [root[rootCount], equation(root[rootCount])], labelFormat);
     rootCount++;
   }
+  // Y-intercept
   if (answerNumber === 1) {
     p1 = board.create('point', [0, equation(0)], labelFormat);
   }
+  // Local minimum
   if (answerNumber === 2) {
-    var minFound = false;
-    var sCount =0;
-    while (!minFound && sCount < x_s_arr.length) {
-      if (!x_s_set[sCount] && x_s_arr[sCount]) {
-        minFound = true;
-        var x_s_val = x_s_arr[sCount];
+    sFound = false;
+    sCount =0;
+    while (!sFound && sCount < x_s_arr.length) {
+      x_s_val = x_s_arr[sCount];
+      // POSTIVE CURVATURE
+      if (!x_s_set[sCount] && secondDerivative(x_s_val)>0) {
+        sFound = true;
+        x_s_set[sCount] = true;
         p1 = board.create('point', [x_s_val, equation(x_s_val)], labelFormat);
       }
       sCount++;
     }
-    localMinCount++;
   }
+  // Local maximum
+  if (answerNumber === 3) {
+    sFound = false;
+    sCount =0;
+    while (!sFound && sCount < x_s_arr.length) {
+      x_s_val = x_s_arr[sCount];
+      // NEGATIVE CURVATURE
+      if (!x_s_set[sCount] && secondDerivative(x_s_val)<0) {
+        sFound = true;
+        x_s_set[sCount] = true;
+        p1 = board.create('point', [x_s_val, equation(x_s_val)], labelFormat);
+      }
+      sCount++;
+    }
+  }
+  // Inflection point
 
   p1.setProperty({name: labelNames[answerCount]});
   answerCount++;
