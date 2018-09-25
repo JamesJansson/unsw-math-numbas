@@ -98,72 +98,6 @@ function secondDerivative(x) {
  * 
  */
 
-function newtonsMethod(inputFunction, inputFunctionDerivative, estimate, options) {
-  options = options ? options : {};
-  var iterationLimit = 100;
-  if (typeof options.iterationLimit === 'number') {
-    iterationLimit = options.iterationLimit
-  }
-  var accuracy = 1E-20;
-  if (typeof options.accuracy === 'number') {
-    accuracy = options.accuracy
-  }
-  var result = privateNewtonsMethod(estimate);
-  if (options.showOutput) {console.log("Result found: " + result)}
-  return result;
-
-  // recursive function that 
-  function privateNewtonsMethod(estimate, startEstimate, lastEstimate, count) {
-    if (options.showOutput) {console.log("Step: " + count + "  Estimate: " + estimate)}
-    if (estimate === undefined || isNaN(estimate) || !isFinite(estimate)){
-      throw "Newton's method failed to find function roots. Possible discontinunity in provided function or its derivative";
-    }
-    if (inputFunction(estimate) === 0) {
-      if (options.showOutput) {console.log("Stopping because functionally equivalent to zero")}
-      return estimate;
-    }
-    if (count === undefined) {
-      count = 0;
-    }
-    if (startEstimate === undefined) {
-      startEstimate = estimate;
-    }
-    if (lastEstimate !== undefined) {
-      // If we have exhausted the number of loops
-      if (count >= iterationLimit) {
-        if (options.showOutput) {console.log("Stopping because reached limit of number of iterations")}
-        return estimate;
-      }
-      // If the difference between the last estimate and the 
-      // current estimate < a millionth of the distance between the last estimate and the current estimate, stop
-      if (Math.abs(lastEstimate - estimate) < Math.abs(accuracy * (startEstimate - estimate))) {
-        if (options.showOutput) {console.log("Stopping because reached accuracy metric")}
-        return estimate;
-      }
-    }
-    count++;
-    // Prevent failure of the method in the case of accidentally hitting a steady point
-    if (inputFunctionDerivative(estimate) === 0 || isNaN(inputFunctionDerivative(estimate)) || !isFinite(inputFunctionDerivative(estimate))
-        || isNaN(inputFunction(estimate)) ||  !isFinite(inputFunction(estimate)) ) {
-      if (options.showOutput) {console.log("Steady point or discontinuity hit, trying a new point")}
-      if (lastEstimate) {
-        estimate = estimate - (estimate - lastEstimate) / 3.141592653589793; // using an irrationish number to hopefully avoid a second conflict
-      } else {
-        estimate = estimate + 3.141592653589793;
-      }
-    }
-    var nextEstimate = estimate - inputFunction(estimate) / inputFunctionDerivative(estimate);
-    return privateNewtonsMethod(nextEstimate, startEstimate, estimate, count);
-  }
-}
-// Testing 
-// y = function(x) {return Math.pow(x, 2) - 5*x + 6} // (x-2)(x-3)
-// dy = function(x) {return 2*x - 5}
-// newtonsMethod(y, dy, 6, {showOutput: true})
-// newtonsMethod(y, dy, 1, {showOutput: true})
-// newtonsMethod(y, dy, 2.1, {showOutput: true})
-// newtonsMethod(y, dy, 2.7, {showOutput: true})
-// newtonsMethod(y, dy, 2.5, {showOutput: true})
 
 function midpointOptimisation(equation, x0, x1) {
   // The first step is to find a positive and a negative between the two points
@@ -368,30 +302,7 @@ var yticks = board.create('ticks', [yaxis,  optimalTickDistance(yBoundMin, yBoun
 var curveline = board.create('functiongraph',
     [equation, xBoundMin, xBoundMax]);
 
-// var g1 = board.create('glider', [0.6, 1.2, curveline]);
-// var t1 = board.create('tangent', [g1]);
-
-// y intercept, turning points, infection points, x intercepts
-// var g2 = board.create('glider', [0, equation(0), curveline]);
 var labelFormat = {fixed:true, face:'o', size:1, label:{fontSize:20, offset: [7, 10]}};
-// // Y-Intercept
-// p1 = board.create('point',[0,equation(0)], labelFormat);
-// p1.setProperty({name: 'A'});
-
-// // Turning points
-// p2 = board.create('point',[x_s1,equation(x_s1)], labelFormat);
-// p2.setProperty({name: 'A'});
-// p2 = board.create('point',[x_s2,equation(x_s2)], labelFormat);
-// p2.setProperty({name: 'B'});
-// p2 = board.create('point',[x_s3,equation(x_s3)], labelFormat);
-// p2.setProperty({name: 'C'});
-
-// Plot roots
-// root.forEach(function (rootVal) {
-//   p2 = board.create('point',[rootVal, equation(rootVal)], labelFormat);
-//   p2.setProperty({name: 'D'});
-// });
-
 
 var answerCount = 0;
 var rootCount = 0;
